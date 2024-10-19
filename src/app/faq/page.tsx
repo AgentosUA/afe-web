@@ -2,41 +2,41 @@
 
 import { Layout } from '@/widgets/layout/ui';
 
-import { Accordeon } from '@/shared/ui/moleculas/accordeon/ui';
+import { Accordion } from '@/shared/ui/moleculas/accordion/ui';
 
 import styles from './page.module.scss';
 
 export default function Faq() {
   return (
     <Layout className={styles.main}>
-      <Accordeon>
-        <Accordeon.Item title="Что такое After the end?">
+      <Accordion>
+        <Accordion.Item title="Что такое After the end?">
           Это модификация компьютерной игры dayz, вселенной Метро 2033. Игровой
           контент позаимствован из одноименной серии игр и переработан под
           требования мультиплеера и концепции проекта.
-        </Accordeon.Item>
+        </Accordion.Item>
 
-        <Accordeon.Item title="Какой концепт/ЛОР проект">
+        <Accordion.Item title="Какой концепт/ЛОР проект">
           Действия разворачиваются в Москве через 20 лет после глобальной
           ядерной войны, случившейся в 2013 году. Москва превратилась в пустошь
           с руинами, наполненной мутантами, а воздух отравлен радиацией.
           Выжившие проживают в московском метрополитене, описываемом как
           «лабиринт железных дорог, туннелей и бункеров».
-        </Accordeon.Item>
+        </Accordion.Item>
 
-        <Accordeon.Item title="Будут ли встречаться герои романа и игр?">
+        <Accordion.Item title="Будут ли встречаться герои романа и игр?">
           Большинство второстепенных героев, такие как Полковник Мельник, Хан,
           Хантер, будут представлены на проекте в качестве NPC. Но главный герой
           вселенной серии игр - Артем, будет отсутствовать, как и большинство
           событий на которые он повлиял, к примеру, уничтожение черных.
-        </Accordeon.Item>
+        </Accordion.Item>
 
-        <Accordeon.Item title=" Какой жанр проекта?">
+        <Accordion.Item title=" Какой жанр проекта?">
           Благодаря собственной системе репутации и навыков, упор сделан на
           RPG/PvP/PvE, Rp будет второстепенным, мы не будем требовать от вас
           отыгрыша своей роли, просто не мешайте это делать другим.
-        </Accordeon.Item>
-      </Accordeon>
+        </Accordion.Item>
+      </Accordion>
     </Layout>
   );
 }

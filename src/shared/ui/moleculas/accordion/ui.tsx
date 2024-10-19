@@ -13,20 +13,20 @@ import classNames from 'classnames';
 
 import styles from './ui.module.scss';
 
-type AccordeonItemProps = PropsWithChildren<{
+type AccordionItemProps = PropsWithChildren<{
   title: ReactNode;
   className?: string;
 }>;
 
-const AccordeonContext = createContext({
+const AccordionContext = createContext({
   activeId: '',
   setActiveId: (_: string) => {},
 });
 
-const AccordeonItem: FC<AccordeonItemProps> = ({ title, children }) => {
+const AccordionItem: FC<AccordionItemProps> = ({ title, children }) => {
   const [id] = useState(Math.random().toString(36).substr(2, 9));
   const [isOpen, setIsOpen] = useState(false);
-  const { activeId, setActiveId } = useContext(AccordeonContext);
+  const { activeId, setActiveId } = useContext(AccordionContext);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -73,11 +73,11 @@ const AccordeonItem: FC<AccordeonItemProps> = ({ title, children }) => {
   );
 };
 
-type AccordeonProps = PropsWithChildren<{
+type AccordionProps = PropsWithChildren<{
   className?: string;
 }>;
 
-const AccordeonWrapper: FC<AccordeonProps> = ({ className, children }) => {
+const AccordionWrapper: FC<AccordionProps> = ({ className, children }) => {
   const [activeId, setId] = useState('');
 
   const setActiveId = (id: string) => {
@@ -85,12 +85,12 @@ const AccordeonWrapper: FC<AccordeonProps> = ({ className, children }) => {
   };
 
   return (
-    <AccordeonContext.Provider value={{ activeId, setActiveId }}>
+    <AccordionContext.Provider value={{ activeId, setActiveId }}>
       <div className={classNames(styles.wrapper, className)}>{children}</div>
-    </AccordeonContext.Provider>
+    </AccordionContext.Provider>
   );
 };
 
-const Accordeon = Object.assign(AccordeonWrapper, { Item: AccordeonItem });
+const Accordion = Object.assign(AccordionWrapper, { Item: AccordionItem });
 
-export { Accordeon };
+export { Accordion };
