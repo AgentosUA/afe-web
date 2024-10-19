@@ -7,9 +7,13 @@ const Footer = () => {
     <footer className={styles.footer}>
       <p className={styles.copyright}>All rights reserved ©</p>
       <div className={styles.social}>
-        <Link href="https://discord.gg/FpAXVQEh">
+        <a
+          href="https://discord.gg/FpAXVQEh"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Image width="62" height="44" src="/discord.png" alt="discord" />
-        </Link>
+        </a>
 
         <Link href="/">
           <Image width="62" height="44" src="/youtube.png" alt="youtube" />

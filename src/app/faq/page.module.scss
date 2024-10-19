@@ -1,7 +1,23 @@
 @import '@/shared/styles/core.scss';
 
 .main {
-  margin: 154px auto;
+  margin: 0 auto;
+
+  width: 100%;
+
+  min-height: calc(100vh - 98px - 160px);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.questions {
+  margin: auto;
+
+  width: 100%;
 
   display: flex;
 
@@ -10,24 +26,4 @@
   align-items: center;
 
   justify-content: center;
-
-  gap: 10px;
-}
-
-.hero-button {
-  margin: 0 auto;
-
-  padding: 10px 30px;
-
-  text-transform: uppercase;
-
-  text-align: center;
-
-  font-size: 24px;
-
-  font-weight: 600;
-
-  width: 255px;
-
-  height: 50px;
 }
