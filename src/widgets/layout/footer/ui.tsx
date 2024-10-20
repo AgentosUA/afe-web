@@ -8,7 +8,7 @@ const Footer = () => {
       <p className={styles.copyright}>All rights reserved ©</p>
       <div className={styles.social}>
         <a
-          href="https://discord.gg/FpAXVQEh"
+          href="https://discord.gg/GyHqSX6QRM"
           target="_blank"
           rel="noopener noreferrer"
         >
