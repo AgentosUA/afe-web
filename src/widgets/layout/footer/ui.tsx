@@ -5,7 +5,11 @@ import Image from 'next/image';
 const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <p className={styles.copyright}>All rights reserved ©</p>
+      <p className={styles.copyright}>
+        Metro: After The End
+        <br />
+        All rights reserved ©
+      </p>
       <div className={styles.social}>
         <a
           href="https://discord.gg/GyHqSX6QRM"

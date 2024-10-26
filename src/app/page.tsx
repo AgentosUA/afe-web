@@ -8,7 +8,13 @@ export default function Home() {
   return (
     <Layout className={styles.main}>
       <Image src="/logo.png" width="514" height={218} alt="logo" />
-      <Button className={styles.heroButton}>Начать играть</Button>
+      <a
+        href="https://discord.gg/GyHqSX6QRM"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Button className={styles.heroButton}>Начать играть</Button>
+      </a>
     </Layout>
   );
 }
