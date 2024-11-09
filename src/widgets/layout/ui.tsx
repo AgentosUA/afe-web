@@ -1,10 +1,9 @@
+import classNames from 'classnames';
 import { FC, PropsWithChildren } from 'react';
 
-import { Header } from './header/ui';
-
-import styles from './ui.module.scss';
-import classNames from 'classnames';
 import { Footer } from './footer/ui';
+import { Header } from './header/ui';
+import styles from './ui.module.scss';
 
 const Layout: FC<
   PropsWithChildren<{

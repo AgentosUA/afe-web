@@ -1,15 +1,18 @@
 'use client';
 
-import Link from 'next/link';
-
+import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import Image from 'next/image';
-
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import styles from './ui.module.scss';
-import classNames from 'classnames';
+import { user } from '@/entities/user/model';
+import { useMounted } from '@/shared/ui/hooks';
+import { View } from '@/shared/ui/quarks/view/ui';
 
-const Header = () => {
+import styles from './ui.module.scss';
+
+const Header = observer(() => {
   const currentPath = usePathname();
 
   const mainLinks = [
@@ -28,6 +31,8 @@ const Header = () => {
     //   title: 'Wiki',
     // },
   ];
+
+  const isMounted = useMounted();
 
   return (
     <header className={styles.header}>
@@ -55,12 +60,34 @@ const Header = () => {
         />
       </Link>
 
-      <nav className={styles.authNav}>
-        <Link href="/auth/sign-in">Войти</Link>
-        <Link href="/auth/signup">Регистрация</Link>
-      </nav>
+      <View.Condition if={!isMounted}>
+        <nav className={styles.authNav} />
+      </View.Condition>
+
+      <View.Condition if={isMounted}>
+        <View.Condition if={!user.isAuthorized}>
+          <nav className={styles.authNav}>
+            <Link href="/auth/sign-in">Войти</Link>
+            <Link href="/auth/signup">Регистрация</Link>
+          </nav>
+        </View.Condition>
+        <View.Condition if={user.isAuthorized}>
+          <nav className={styles.authNav}>
+            <Link href="/prifle">Профиль</Link>
+            <Link
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                user.logout();
+              }}
+            >
+              Вьход
+            </Link>
+          </nav>
+        </View.Condition>
+      </View.Condition>
     </header>
   );
-};
+});
 
 export { Header };

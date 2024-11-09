@@ -5,15 +5,15 @@
 }
 
 .input {
-  padding: 10px 8px;
-  height: 32px;
+  padding: 12px;
+  height: 40px;
   width: 100%;
-  background: $black;
-  color: $white;
+  background: $grey;
+  color: $lightGrey;
   border: none;
 
   &::placeholder {
-    color: $grey;
+    color: $lightGrey;
   }
 
   &:focus {
@@ -25,7 +25,7 @@
   position: absolute;
   top: 50%;
   left: 10px;
-  color: $orange;
+  color: $lightGrey;
   font-size: 14px;
   font-weight: 400;
   pointer-events: none;
@@ -38,7 +38,7 @@
   top: -18px;
   left: 0;
   font-size: 14px;
-  color: $orange;
+  color: $lightGrey;
   transition: .2s;
   transform: translateY(0);
 }

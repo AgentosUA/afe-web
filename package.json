@@ -9,11 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tiptap/core": "^2.9.1",
+    "@tiptap/pm": "^2.9.1",
+    "@tiptap/react": "^2.9.1",
+    "@tiptap/starter-kit": "^2.9.1",
+    "axios": "^1.7.7",
     "classnames": "^2.5.1",
+    "cookie-cutter": "^0.2.0",
+    "cookies-next": "^5.0.2",
+    "formik": "^2.4.6",
+    "mobx": "^6.13.5",
+    "mobx-react-lite": "^4.0.7",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
-    "sass": "^1.79.5"
+    "sass": "^1.79.5",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -24,14 +35,14 @@
     "eslint-config-prettier": "8.1.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-boundaries": "^2.9.0",
-    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-json": "^3.1.0",
     "eslint-plugin-jsx-a11y": "6.6.1",
     "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-react": "7.31.11",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-sort-imports-es6-autofix": "^0.5.0",
-    "eslint-plugin-unused-imports": "^1.0.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "typescript": "^5"
   }
 }

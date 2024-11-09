@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ButtonHTMLAttributes, FC, PropsWithChildren, forwardRef } from 'react';
+import { ButtonHTMLAttributes, forwardRef } from 'react';
 
 import styles from './ui.module.scss';
 
@@ -20,7 +20,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           [styles[size]]: size,
         },
         className
-      )}>
+      )}
+    >
       {children}
     </button>
   )
