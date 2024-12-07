@@ -46,7 +46,30 @@ const instance = axios.create({
   },
 });
 
+type Post = {
+  id: string;
+  title: string;
+  description: string;
+  content: string;
+  image: string;
+  date: string;
+};
+
 const afeApi = {
+  news: {
+    getAll: async () => {
+      return instance.get<Post[]>('/posts');
+    },
+    add: async (data: {
+      title: string;
+      description: string;
+      image: string;
+      content: string;
+    }) => {
+      return instance.post('/posts', data);
+    },
+  },
+
   user: {
     get: async () => {
       return instance.get<User>('/profile');

@@ -1,8 +1,6 @@
 /* eslint-disable react/display-name */
 import cx from 'classnames';
-
 import type { ComponentProps, ReactHTML } from 'react';
-
 import { createElement } from 'react';
 
 const styled =
