@@ -1,8 +1,8 @@
 'use client';
 
+import { Accordion } from '@/shared/ui/moleculas/accordion/ui';
 import { Layout } from '@/widgets/layout/ui';
 
-import { Accordion } from '@/shared/ui/moleculas/accordion/ui';
 
 import styles from './page.module.scss';
 
@@ -11,7 +11,7 @@ export default function Faq() {
     <Layout className={styles.main}>
       <h1 className={styles.headline}>FAQ</h1>
       <div>
-        <Accordion>
+        <Accordion className={styles.accordion}>
           <Accordion.Item title="Что такое After the end?">
             Это модификация компьютерной игры dayz, вселенной Метро 2033.
             Игровой контент позаимствован из одноименной серии игр и переработан

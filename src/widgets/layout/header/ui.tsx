@@ -67,7 +67,7 @@ const Header = observer(() => {
       <View.Condition if={isMounted}>
         <View.Condition if={!user.isAuthorized}>
           <nav className={styles.authNav}>
-            <Link href="/auth/sign-in">Войти</Link>
+            <Link href="/auth/sign-in">Вход</Link>
             <Link href="/auth/signup">Регистрация</Link>
           </nav>
         </View.Condition>

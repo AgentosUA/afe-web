@@ -2,6 +2,12 @@
 
 .wrapper {
   position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
 }
 
 .input {
@@ -11,6 +17,8 @@
   background: $grey;
   color: $lightGrey;
   border: none;
+
+  font-size: 16px;
 
   &::placeholder {
     color: $lightGrey;
@@ -22,21 +30,15 @@
 }
 
 .label {
-  position: absolute;
-  top: 50%;
-  left: 10px;
   color: $lightGrey;
   font-size: 14px;
   font-weight: 400;
-  pointer-events: none;
   font-family: var(--font-roboto);
+  text-transform: uppercase;
   transition: .2s;
-  transform: translateY(-50%);
 }
 
 .label-focused {
-  top: -18px;
-  left: 0;
   font-size: 14px;
   color: $lightGrey;
   transition: .2s;
