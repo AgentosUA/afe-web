@@ -2,8 +2,9 @@
 
 import { getCookie, setCookie } from 'cookies-next/server';
 
-import { user } from '@/entities/user/model';
+
 import { afeApi, instance } from '@/shared/sdk';
+import { rootStore, store } from '@/entities/store';
 
 let refreshPromise: Promise<string | void> | null = null;
 
@@ -46,7 +47,7 @@ instance.interceptors.response.use(
           return token;
         })
         .catch(() => {
-          user.logout();
+          store.user.logout();
         })
         .finally(() => {
           refreshPromise = null;

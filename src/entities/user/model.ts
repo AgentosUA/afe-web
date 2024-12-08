@@ -1,5 +1,5 @@
 import { setCookie } from 'cookies-next/client';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 import { afeApi, User, instance, LoginDto } from '@/shared/sdk';
 import { setTokenFromCookies } from '@/shared/sdk/lib';
@@ -9,28 +9,31 @@ class UserModel {
 
   isLoading = false;
 
-  isAuthorized = false;
-
-  booted = false;
+  isAuthorised = false;
 
   constructor() {
     makeAutoObservable(this);
-    this.boot();
   }
 
-  boot = () => {
-    const isAuthorized = setTokenFromCookies(instance);
-
-    if (isAuthorized) {
-      this.get();
-    }
-
-    this.isAuthorized = isAuthorized;
-
-    this.booted = true;
+  hydrate = (data: Partial<UserModel>) => {
+    runInAction(() => {
+      this.isAuthorised = data.isAuthorised ?? false;
+    });
   };
 
-  get = async () => {
+  boot = async (isAuthorised: boolean) => {
+    if (isAuthorised) {
+      await this.get();
+    }
+
+    runInAction(() => {
+      this.isAuthorised = isAuthorised;
+    });
+  };
+
+  get = async (checkIsAuth = false) => {
+    if (checkIsAuth && !this.isAuthorised) return;
+
     try {
       this.isLoading = true;
 
@@ -60,9 +63,11 @@ class UserModel {
         path: '/',
       });
 
-      setTokenFromCookies(instance);
+      setTokenFromCookies(token, instance);
 
-      this.isAuthorized = true;
+      runInAction(() => {
+        this.isAuthorised = true;
+      });
     } catch (error: any) {
       onError?.(error?.response?.data?.message ?? 'Unknown error');
     } finally {
@@ -79,10 +84,10 @@ class UserModel {
       path: '/',
     });
 
-    this.isAuthorized = false;
+    runInAction(() => {
+      this.isAuthorised = false;
+    });
   };
 }
 
-const user = new UserModel();
-
-export { user, UserModel };
+export { UserModel };

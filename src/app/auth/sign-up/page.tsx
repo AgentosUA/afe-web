@@ -5,7 +5,6 @@ import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/navigation';
 import * as yup from 'yup';
 
-import { user } from '@/entities/user/model';
 import { afeApi } from '@/shared/sdk';
 import { Button } from '@/shared/ui/atoms/button';
 import { Input } from '@/shared/ui/atoms/input/ui';

@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import Link from 'next/link';
 import * as yup from 'yup';
 
-import { user } from '@/entities/user/model';
+import { store } from '@/entities/store';
 import { Button } from '@/shared/ui/atoms/button';
 import { Input } from '@/shared/ui/atoms/input/ui';
 import { Layout } from '@/widgets/layout/ui';
@@ -27,7 +27,7 @@ const LoginPage = observer(() => {
     validateOnBlur: true,
     validationSchema,
     onSubmit: () => {
-      user.login(formik.values, (error) =>
+      store.user.login(formik.values, (error) =>
         formik.setErrors({ password: error })
       );
     },
