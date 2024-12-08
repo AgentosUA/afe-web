@@ -3,6 +3,7 @@
 import { useFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import * as yup from 'yup';
 
 import { store } from '@/entities/store';
@@ -13,6 +14,8 @@ import { Layout } from '@/widgets/layout/ui';
 import styles from './ui.module.scss';
 
 const LoginPage = observer(() => {
+  const router = useRouter();
+
   const validationSchema = yup.object({
     email: yup.string().required('Required'),
     password: yup.string().required('Required'),
@@ -26,10 +29,14 @@ const LoginPage = observer(() => {
     enableReinitialize: true,
     validateOnBlur: true,
     validationSchema,
-    onSubmit: () => {
-      store.user.login(formik.values, (error) =>
+    onSubmit: async () => {
+      await store.user.login(formik.values, (error) =>
         formik.setErrors({ password: error })
       );
+
+      if (store.user.isAuthorised) {
+        router.push('/profile');
+      }
     },
   });
 

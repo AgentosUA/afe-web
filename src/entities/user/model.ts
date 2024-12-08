@@ -18,16 +18,7 @@ class UserModel {
   hydrate = (data: Partial<UserModel>) => {
     runInAction(() => {
       this.isAuthorised = data.isAuthorised ?? false;
-    });
-  };
-
-  boot = async (isAuthorised: boolean) => {
-    if (isAuthorised) {
-      await this.get();
-    }
-
-    runInAction(() => {
-      this.isAuthorised = isAuthorised;
+      this.data = data.data ?? null;
     });
   };
 

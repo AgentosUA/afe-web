@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
 
 import { RootStore } from '@/entities/store';
 import { StoreProvider } from '@/entities/store/provider';
-import { instance } from '@/shared/sdk';
+import { afeApi, instance } from '@/shared/sdk';
 import { setTokenFromCookies } from '@/shared/sdk/lib';
 
 const roboto = Roboto({
@@ -32,9 +32,22 @@ export default async function RootLayout({
     instance
   );
 
+  let userData = null;
+
+  if (isAuthorised) {
+    try {
+      const { data } = await afeApi.user.get();
+
+      userData = data;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   const initialData = {
     user: {
       isAuthorised,
+      data: userData,
     },
   } as Partial<RootStore>;
 
