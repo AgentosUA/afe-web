@@ -57,9 +57,14 @@ type Post = {
 
 const afeApi = {
   news: {
+    getById: async (id: string) => {
+      return instance.get<Post>(`/posts/${id}`);
+    },
+
     getAll: async () => {
       return instance.get<Post[]>('/posts');
     },
+
     add: async (data: {
       title: string;
       description: string;

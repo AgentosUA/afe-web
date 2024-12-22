@@ -39,8 +39,8 @@ export default async function RootLayout({
       const { data } = await afeApi.user.get();
 
       userData = data;
-    } catch (e) {
-      console.error(e);
+    } catch {
+      // do nothing
     }
   }
 

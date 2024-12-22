@@ -18,7 +18,7 @@ const Post: FC<{
   date: string;
 }> = ({ title, description, date, image = '/logo.png' }) => (
   <article className={styles.post}>
-    <Image src={image} width={250} height={250} alt={title} />
+    <Image src={image} width={350} height={150} alt={title} />
     <div className={styles.content}>
       <h2>{title}</h2>
       <p>{description}</p>
@@ -43,11 +43,24 @@ const Posts = async () => {
   );
 };
 
+const PostsSkeleton = () => {
+  return (
+    <div className={styles.posts}>
+      <div className={styles.skeleton} />
+      <div className={styles.skeleton} />
+      <div className={styles.skeleton} />
+      <div className={styles.skeleton} />
+      <div className={styles.skeleton} />
+      <div className={styles.skeleton} />
+    </div>
+  );
+};
+
 export default async function NewsPage() {
   return (
-    <Layout>
+    <Layout className={styles.main}>
       <h1>Новости</h1>
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<PostsSkeleton />}>
         <Posts />
       </Suspense>
     </Layout>
