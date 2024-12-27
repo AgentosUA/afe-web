@@ -102,4 +102,4 @@ const afeApi = {
 
 export { afeApi, instance };
 
-export type { User, LoginDto, LoginResponse };
+export type { User, LoginDto, LoginResponse, Post };

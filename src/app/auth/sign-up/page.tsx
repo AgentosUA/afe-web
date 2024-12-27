@@ -54,7 +54,7 @@ const SignUpPage = observer(() => {
       <Input
         id="email"
         type="Email"
-        label="Email"
+        placeholder="Email"
         value={formik.values.email}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -63,7 +63,7 @@ const SignUpPage = observer(() => {
       <Input
         id="username"
         type="text"
-        label="Username"
+        placeholder="Username"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         value={formik.values.username}
@@ -72,7 +72,7 @@ const SignUpPage = observer(() => {
       <Input
         id="password"
         type="password"
-        label="Password"
+        placeholder="Password"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         value={formik.values.password}
@@ -81,15 +81,13 @@ const SignUpPage = observer(() => {
       <Input
         id="rePassword"
         type="password"
-        label="Re-password"
+        placeholder="Re-password"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         value={formik.values.rePassword}
         error={formik.touched.rePassword ? formik.errors.rePassword : ''}
       />
-      <Button variant="bold" type="submit">
-        Sign Up
-      </Button>
+      <Button type="submit">Sign Up</Button>
     </form>
   );
 });

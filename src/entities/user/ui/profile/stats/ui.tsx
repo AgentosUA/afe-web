@@ -17,7 +17,7 @@ const UserStats = observer<{
       <div className={classNames(styles.form, className)}>
         <h3>Для просмотра статистики введите STEAM ID</h3>
         <div className={styles.col}>
-          <Input label="STEAM ID" />
+          <Input placeholder="STEAM ID" />
           <Button>ВВЕСТИ</Button>
         </div>
       </div>

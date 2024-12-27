@@ -3,6 +3,7 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useFormik } from 'formik';
+import { Bold, Italic, Underline } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 import { afeApi } from '@/shared/sdk';
@@ -11,6 +12,7 @@ import { Input } from '@/shared/ui/atoms/input/ui';
 import { Layout } from '@/widgets/layout/ui';
 
 import styles from './page.module.scss';
+import { styled } from '@/shared/utils/react';
 
 export default function NewsNewPage() {
   const router = useRouter();
@@ -64,6 +66,8 @@ export default function NewsNewPage() {
     // content: formik.values.content,
   });
 
+  const ActionWrapper = styled('div', 'bg-slate-500 rounded-s');
+
   return (
     <Layout>
       <form
@@ -75,22 +79,32 @@ export default function NewsNewPage() {
       >
         <Input
           name="title"
-          label="Название"
+          placeholder="Название"
           value={formik.values.title}
           onChange={formik.handleChange}
         />
 
         <Input
           name="description"
-          label="Описание"
+          placeholder="Описание"
           value={formik.values.description}
           onChange={formik.handleChange}
         />
 
         <div className={styles.editorWrapper}>
-          <label className={styles.label} htmlFor="content">
-            Текст
-          </label>
+          <div className="flex align-middle  max-w-fit gap-3">
+            <ActionWrapper>
+              <Bold className="h-4 w-4 cursor-pointer" />
+            </ActionWrapper>
+
+            <ActionWrapper>
+              <Italic className="h-4 w-4 cursor-pointer" />
+            </ActionWrapper>
+
+            <div className="bg-slate-500">
+              <Underline className="h-4 w-4 cursor-pointer" />
+            </div>
+          </div>
           <EditorContent
             className={styles.editor}
             name="content"
@@ -104,12 +118,12 @@ export default function NewsNewPage() {
           {/* <div onClick={}></div> */}
           <Input
             name="image"
-            label="Изображение (URL)"
+            placeholder="Изображение (URL)"
             value={formik.values.image}
             onChange={formik.handleChange}
           />
           <Input
-            label="Дата публикации"
+            placeholder="Дата публикации"
             required
             name="date"
             type="date"
@@ -117,9 +131,16 @@ export default function NewsNewPage() {
             onChange={formik.handleChange}
           />
         </div>
-        <Button type="submit" onClick={() => {}}>
-          Добавить
-        </Button>
+        <div className='flex align-middle w-full'>
+          <Button
+            className="max-w-fit align-middle"
+            type="submit"
+            variant="default"
+            onClick={() => {}}
+          >
+            Добавить
+          </Button>
+        </div>
       </form>
     </Layout>
   );

@@ -21,7 +21,12 @@ export default function Home() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Button className={styles.heroButton}>Начать играть</Button>
+        <Button
+          className="bg-red-700 hover:bg-red-800 text-lg uppercase font-bold"
+          size="lg"
+        >
+          Начать играть
+        </Button>
       </a>
     </Layout>
   );

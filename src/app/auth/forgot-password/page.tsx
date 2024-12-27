@@ -56,7 +56,7 @@
 //           <Input
 //             id='email'
 //             type='email'
-//             label='Email'
+//             placeholder='Email'
 //             value={formik.values.email}
 //             error={formik.touched.email ? formik.errors.email : ''}
 //             onChange={formik.handleChange}

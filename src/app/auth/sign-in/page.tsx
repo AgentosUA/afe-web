@@ -43,10 +43,10 @@ const LoginPage = observer(() => {
   return (
     <Layout>
       <form className={styles.form} onSubmit={formik.handleSubmit}>
-        <h2 className={styles.title}>Авторизация</h2>
+        <h2 className="text-red-600 text-center text-2xl">Авторизация</h2>
         <Input
           id="email"
-          label="Email or username"
+          placeholder="Почта или никнейм"
           value={formik.values.email}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -55,16 +55,19 @@ const LoginPage = observer(() => {
         <Input
           id="password"
           type="password"
-          label="Password"
+          placeholder="Пароль"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.password}
           error={formik.touched.password ? formik.errors.password : ''}
         />
 
-        <Button type="submit">Log in</Button>
-        <Link className={styles.forgotPassword} href="/auth/forgot-password">
-          Forgot password?
+        <Button type="submit">Авторизироваться</Button>
+        <Link
+          className="hover:underline hover:text-red-800 text-sm text-right"
+          href="/auth/forgot-password"
+        >
+          Не помню пароль
         </Link>
       </form>
     </Layout>
