@@ -9,10 +9,10 @@ import { useRouter } from 'next/navigation';
 import { afeApi } from '@/shared/sdk';
 import { Button } from '@/shared/ui/atoms/button';
 import { Input } from '@/shared/ui/atoms/input/ui';
+import { styled } from '@/shared/utils/react';
 import { Layout } from '@/widgets/layout/ui';
 
 import styles from './page.module.scss';
-import { styled } from '@/shared/utils/react';
 
 export default function NewsNewPage() {
   const router = useRouter();
@@ -51,7 +51,8 @@ export default function NewsNewPage() {
     },
     editorProps: {
       attributes: {
-        class: styles.editor,
+        class:
+          'bg-neutral-900 [&_li]:ml-6 outline-none min-h-72 h-full w-full p-4',
       },
     },
 
@@ -66,17 +67,21 @@ export default function NewsNewPage() {
     // content: formik.values.content,
   });
 
-  const ActionWrapper = styled('div', 'bg-slate-500 rounded-s');
+  const ActionWrapper = styled(
+    'button',
+    'bg-neutral-900 rounded p-1 hover:bg-neutral-800'
+  );
 
   return (
     <Layout>
       <form
-        className={styles.form}
+        className="flex flex-col gap-6 p-4 bg-black"
         onSubmit={(e) => {
           e.preventDefault();
           formik.submitForm();
         }}
       >
+        <h1 className="text-2xl">Новая публикация</h1>
         <Input
           name="title"
           placeholder="Название"
@@ -101,12 +106,11 @@ export default function NewsNewPage() {
               <Italic className="h-4 w-4 cursor-pointer" />
             </ActionWrapper>
 
-            <div className="bg-slate-500">
+            <ActionWrapper>
               <Underline className="h-4 w-4 cursor-pointer" />
-            </div>
+            </ActionWrapper>
           </div>
           <EditorContent
-            className={styles.editor}
             name="content"
             editor={editor}
             value={formik.values.content}
@@ -131,16 +135,15 @@ export default function NewsNewPage() {
             onChange={formik.handleChange}
           />
         </div>
-        <div className='flex align-middle w-full'>
-          <Button
-            className="max-w-fit align-middle"
-            type="submit"
-            variant="default"
-            onClick={() => {}}
-          >
-            Добавить
-          </Button>
-        </div>
+
+        <Button
+          className="flex max-w-fit justify-center mx-auto"
+          type="submit"
+          variant="default"
+          onClick={() => {}}
+        >
+          Добавить
+        </Button>
       </form>
     </Layout>
   );

@@ -71,6 +71,8 @@ const afeApi = {
       image: string;
       content: string;
     }) => {
+      console.log('data', data);
+
       return instance.post('/posts', data);
     },
   },

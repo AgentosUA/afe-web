@@ -18,19 +18,26 @@ export const dynamic = 'force-dynamic';
 
 const PostCard: FC<{ post: Post }> = ({ post }) => {
   return (
-    <Card className="bg-black w-96 h-96 hover:zoom-in-50 hover:scale-105 transition-transform duration-75 rounded p-4 border-black">
-      <CardHeader className="relative min-h-60">
-        <Image
-          className="object-scale-down"
-          src={post.image ? post.image : '/logo.png'}
-          fill
-          alt={post.title}
-        />
-      </CardHeader>
-      <CardTitle>{post.title}</CardTitle>
-      <CardDescription>{post.description}</CardDescription>
-      <CardFooter>{post.date}</CardFooter>
-    </Card>
+    <Link
+      className=" bg-black w-96 h-96 hover:zoom-in-50 hover:scale-105 transition-transform duration-75 rounded p-4 border-black min-w-60 hover:border-red-700 overflow-hidden"
+      href={`/news/${post.id}`}
+    >
+      <Card className="bg-transparent border-none">
+        <CardHeader className="relative min-h-60 overflow-hidden">
+          <img
+            className="object-cover absolute top-0 left-0 w-full h-full"
+            src={post.image ? post.image : '/logo.png'}
+            // fill
+            alt={post.title}
+          />
+        </CardHeader>
+        <CardTitle className="text-white">{post.title}</CardTitle>
+        <CardDescription className="text-gray-400">
+          {post.description}
+        </CardDescription>
+        <CardFooter className="text-red-800">{post.date}</CardFooter>
+      </Card>
+    </Link>
   );
 };
 
@@ -42,11 +49,9 @@ const Posts = async () => {
   if (!data) return <Layout>Failed to load data</Layout>;
 
   return (
-    <div className="flex align-middle flex-wrap gap-5">
+    <div className="flex w-full items-center flex-wrap min-w-60 gap-4">
       {data.map((item) => (
-        <Link key={item.id} href={`/news/${item.id}`}>
-          <PostCard post={item} />
-        </Link>
+        <PostCard key={item.id} post={item} />
       ))}
     </div>
   );
@@ -58,7 +63,7 @@ const Skeleton = () => (
 
 const PostsSkeleton = () => {
   return (
-    <div className="flex align-middle flex-wrap gap-5">
+    <div className="flex w-full items-center flex-wrap min-w-60 gap-4">
       <Skeleton />
       <Skeleton />
       <Skeleton />
@@ -71,7 +76,7 @@ const PostsSkeleton = () => {
 
 export default async function NewsPage() {
   return (
-    <Layout className={styles.main}>
+    <Layout className='!mt-6'>
       <h1 className="text-2xl mb-4">Новости</h1>
       <Suspense fallback={<PostsSkeleton />}>
         <Posts />

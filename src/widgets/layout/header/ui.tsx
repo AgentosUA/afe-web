@@ -51,7 +51,7 @@ const Header = observer(() => {
         <Image
           className={styles.logo}
           width="120"
-          height="98"
+          height="94"
           src="/header-logo.png"
           alt="Metro: After the end"
         />

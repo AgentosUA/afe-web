@@ -1,32 +1,16 @@
 import Image from 'next/image';
-import { FC } from 'react';
 
 import NotFoundPage from '@/app/404';
 import { afeApi } from '@/shared/sdk';
 import { Layout } from '@/widgets/layout/ui';
 
-import styles from './page.module.scss';
-
 export const dynamic = 'force-dynamic';
 
-const Post: FC<{
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  date: string;
-}> = ({ title, description, date, image = '/logo.png' }) => (
-  <article className={styles.post}>
-    <Image src={image} width={250} height={250} alt={title} />
-    <div className={styles.content}>
-      <h2>{title}</h2>
-      <p>{description}</p>
-      <p>{date}</p>
-    </div>
-  </article>
-);
-
-export default async function NewsDetailsPage({ params }) {
+export default async function NewsDetailsPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const { id } = await params;
   if (!id) return <NotFoundPage />;
 
@@ -35,14 +19,18 @@ export default async function NewsDetailsPage({ params }) {
   // if (!data) return <NotFoundPage />;
 
   return (
-    <Layout className={styles.main}>
-      <h1>{data.title}</h1>
-      <div>{data.date}</div>
-      <div>{data.description}</div>
-      <div
-        className={styles.postContent}
-        dangerouslySetInnerHTML={{ __html: data.content }}
-      ></div>
+    <Layout className="!mt-12">
+      <div className="bg-black p-5 shadow">
+        <h1 className="text-4xl">{data.title}</h1>
+        {data.image && (
+          <img src={data.image} width={250} height={250} alt={data.title} />
+        )}
+        <div>{data.date}</div>
+        <div
+          className=""
+          dangerouslySetInnerHTML={{ __html: data.content }}
+        ></div>
+      </div>
     </Layout>
   );
 }

@@ -42,8 +42,11 @@ const LoginPage = observer(() => {
 
   return (
     <Layout>
-      <form className={styles.form} onSubmit={formik.handleSubmit}>
-        <h2 className="text-red-600 text-center text-2xl">Авторизация</h2>
+      <form
+        className="mt-36 mx-auto flex flex-col gap-6 max-w-96 w-full bg-black/65 p-4"
+        onSubmit={formik.handleSubmit}
+      >
+        <h2 className="text-red-600 text-center font-bold text-2xl">Авторизация</h2>
         <Input
           id="email"
           placeholder="Почта или никнейм"
