@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { getPayload } from 'payload';
 import { FC, Suspense } from 'react';
 
-import { afeApi, Post } from '@/shared/sdk';
+import { Media } from '@/payload-types';
+import payloadConfig from '@/payload.config';
 import {
   Card,
   CardDescription,
@@ -12,46 +14,62 @@ import {
 } from '@/shared/ui/atoms/card';
 import { Layout } from '@/widgets/layout/ui';
 
-import styles from './page.module.scss';
+// export const dynamic = 'force-dynamic';
 
-export const dynamic = 'force-dynamic';
-
-const PostCard: FC<{ post: Post }> = ({ post }) => {
+const PostCard: FC<{
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  image: Media;
+}> = ({ id, title, date, description, image }) => {
   return (
     <Link
       className=" bg-black w-96 h-96 hover:zoom-in-50 hover:scale-105 transition-transform duration-75 rounded p-4 border-black min-w-60 hover:border-red-700 overflow-hidden"
-      href={`/news/${post.id}`}
+      href={`/news/${id}`}
     >
       <Card className="bg-transparent border-none">
         <CardHeader className="relative min-h-60 overflow-hidden">
-          <img
+          <Image
             className="object-cover absolute top-0 left-0 w-full h-full"
-            src={post.image ? post.image : '/logo.png'}
-            // fill
-            alt={post.title}
+            src={image.url!}
+            width="200"
+            height={200}
+            alt={title}
           />
         </CardHeader>
-        <CardTitle className="text-white">{post.title}</CardTitle>
+        <CardTitle className="text-white">{title}</CardTitle>
         <CardDescription className="text-gray-400">
-          {post.description}
+          {description}
         </CardDescription>
-        <CardFooter className="text-red-800">{post.date}</CardFooter>
+        <CardFooter className="text-red-800">{date}</CardFooter>
       </Card>
     </Link>
   );
 };
 
 const Posts = async () => {
-  const { data } = await afeApi.news.getAll();
+  const payload = await getPayload({
+    config: payloadConfig,
+  });
 
-  // await new Promise((resolve) => setTimeout(resolve, 500));
+  const data = await payload.find({
+    collection: 'posts',
+  });
 
-  if (!data) return <Layout>Failed to load data</Layout>;
+  console.log(data);
 
   return (
     <div className="flex w-full items-center flex-wrap min-w-60 gap-4">
-      {data.map((item) => (
-        <PostCard key={item.id} post={item} />
+      {data.docs.map((item) => (
+        <PostCard
+          key={item.id}
+          id={item.id}
+          title={item.title}
+          date={item.date}
+          description={item.description}
+          image={item.preview}
+        />
       ))}
     </div>
   );
@@ -76,7 +94,7 @@ const PostsSkeleton = () => {
 
 export default async function NewsPage() {
   return (
-    <Layout className='!mt-6'>
+    <Layout className="!mt-6">
       <h1 className="text-2xl mb-4">Новости</h1>
       <Suspense fallback={<PostsSkeleton />}>
         <Posts />
