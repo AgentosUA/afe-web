@@ -26,7 +26,6 @@ export const Users: CollectionConfig = {
       label: 'Avatar',
       type: 'upload',
       relationTo: 'media',
-      required: true,
     },
   ],
 };

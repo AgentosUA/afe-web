@@ -1,4 +1,5 @@
 import { RichText } from '@payloadcms/richtext-lexical/react';
+import dayjs from 'dayjs';
 import Image from 'next/image';
 import { getPayload } from 'payload';
 
@@ -29,18 +30,24 @@ export default async function NewsDetailsPage({
 
   return (
     <Layout className="!mt-12">
-      <div className="bg-black p-5 shadow">
-        <h1 className="text-4xl">{data.title}</h1>
+      <div className="bg-black/75 backdrop-blur-md p-5 shadow">
+        <h1 className="text-4xl flex justify-between items-center text-red-700">
+          {data.title}
+          <span className="text-lg text-red-700 text-right">
+            {dayjs(data.date).format('DD.MM.YYYY')}
+          </span>
+        </h1>
         {data.preview && (
           <Image
+            className="w-full h-96 object-cover my-2"
+            width={900}
+            height={384}
             src={data.preview?.url}
-            width={250}
-            height={250}
             alt={data.title}
           />
         )}
-        <div>{data.date}</div>
-        <RichText data={data.content} />
+
+        <RichText className='[&>ul]:list-disc [&>li]:pl-5' data={data.content} />
       </div>
     </Layout>
   );
