@@ -19,6 +19,7 @@ body {
   max-width: 100vw;
   height: 100%;
   overflow-x: hidden;
+  position: relative;
 }
 
 body {
@@ -26,8 +27,17 @@ body {
   background-size: cover;
 }
 
+
+
 ul li {
   list-style: square;
+}
+
+.list-number {
+  margin-left: 14px;
+  padding-left: 14px;
+  counter-reset: list;
+  list-style: numeric;
 }
 
 // a {
