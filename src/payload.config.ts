@@ -8,9 +8,10 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { buildConfig } from 'payload';
 import sharp from 'sharp';
 
-import { Media } from './collections/Media';
-import { Posts } from './collections/posts';
-import { Users } from './collections/Users';
+import { FAQ } from './api/collections/faq';
+import { Media } from './api/collections/media';
+import { Posts } from './api/collections/posts';
+import { Users } from './api/collections/users';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -22,7 +23,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts],
+  collections: [Users, Media, Posts, FAQ],
   editor: lexicalEditor({
     features: ({ defaultFeatures, rootFeatures }) => [
       ...rootFeatures,

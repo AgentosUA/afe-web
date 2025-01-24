@@ -1,96 +1,58 @@
-import {
-  createContext,
-  FC,
-  PropsWithChildren,
-  ReactNode,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+"use client"
 
-import classNames from 'classnames';
+import * as AccordionPrimitive from "@radix-ui/react-accordion"
+import { ChevronDown } from "lucide-react"
+import * as React from "react"
 
-import styles from './ui.module.scss';
+import { cn } from "@/lib/utils"
 
-type AccordionItemProps = PropsWithChildren<{
-  title: ReactNode;
-  className?: string;
-}>;
+const Accordion = AccordionPrimitive.Root
 
-const AccordionContext = createContext({
-  activeId: '',
-  setActiveId: (_: string) => {},
-});
+const AccordionItem = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
+>(({ className, ...props }, ref) => (
+  <AccordionPrimitive.Item
+    ref={ref}
+    className={cn(className)}
+    {...props}
+  />
+))
+AccordionItem.displayName = "AccordionItem"
 
-const AccordionItem: FC<AccordionItemProps> = ({ title, children }) => {
-  const [id] = useState(Math.random().toString(36).substr(2, 9));
-  const [isOpen, setIsOpen] = useState(false);
-  const { activeId, setActiveId } = useContext(AccordionContext);
+const AccordionTrigger = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
+>(({ className, children, ...props }, ref) => (
+  <AccordionPrimitive.Header className="flex">
+    <AccordionPrimitive.Trigger
+      ref={ref}
+      className={cn(
+        "flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
+        className
+      )}
+      {...props}
+    >
+      {children}
+      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+    </AccordionPrimitive.Trigger>
+  </AccordionPrimitive.Header>
+))
+AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName
 
-  const ref = useRef<HTMLDivElement>(null);
+const AccordionContent = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
+>(({ className, children, ...props }, ref) => (
+  <AccordionPrimitive.Content
+    ref={ref}
+    className="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+    {...props}
+  >
+    <div className={cn("pb-4 pt-0", className)}>{children}</div>
+  </AccordionPrimitive.Content>
+))
 
-  const onItemClick = () => {
-    if (isOpen) {
-      setActiveId('');
-      setIsOpen(false);
+AccordionContent.displayName = AccordionPrimitive.Content.displayName
 
-      return;
-    }
-
-    setActiveId(id);
-    setIsOpen(true);
-  };
-
-  useEffect(() => {
-    if (activeId === id) return;
-
-    setIsOpen(false);
-  }, [activeId]);
-
-  useEffect(() => {
-    if (!ref.current) return;
-
-    ref.current.style.maxHeight = isOpen
-      ? `${ref.current.scrollHeight + 45}px`
-      : '0';
-  }, [isOpen]);
-
-  return (
-    <div className={styles.itemWrapper}>
-      <button className={styles.button} onClick={onItemClick}>
-        {title}
-      </button>
-      <div
-        ref={ref}
-        className={classNames(styles.content, {
-          [styles.contentActive]: isOpen,
-        })}
-      >
-        {children}
-      </div>
-    </div>
-  );
-};
-
-type AccordionProps = PropsWithChildren<{
-  className?: string;
-}>;
-
-const AccordionWrapper: FC<AccordionProps> = ({ className, children }) => {
-  const [activeId, setId] = useState('');
-
-  const setActiveId = (id: string) => {
-    setId(id);
-  };
-
-  return (
-    <AccordionContext.Provider value={{ activeId, setActiveId }}>
-      <div className={classNames(styles.wrapper, className)}>{children}</div>
-    </AccordionContext.Provider>
-  );
-};
-
-const Accordion = Object.assign(AccordionWrapper, { Item: AccordionItem });
-
-export { Accordion };
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }

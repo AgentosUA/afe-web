@@ -25,7 +25,7 @@ const PostCard: FC<{
 }> = ({ id, title, date, description, image }) => {
   return (
     <Link
-      className=" bg-black border border-gray-900 w-96 h-96 hover:zoom-in-50 hover:scale-105 transition-transform duration-75  p-4  min-w-60 hover:border-red-700 overflow-hidden"
+      className="bg-black border border-gray-900 w-96 h-96 hover:zoom-in-50 lg:hover:scale-105 lg:transition-transform lg:duration-75  p-4  min-w-60 lg:hover:border-red-700 overflow-hidden max-[1218px]:w-full"
       href={`/news/${id}`}
     >
       <Card className="bg-transparent border-none">
@@ -57,6 +57,7 @@ const Posts = async () => {
 
   const data = await payload.find({
     collection: 'posts',
+    limit: 99999
   });
 
   if (!data.docs.length) {
@@ -64,7 +65,7 @@ const Posts = async () => {
   }
 
   return (
-    <div className="flex w-full items-center flex-wrap min-w-60 gap-4">
+    <div className="flex w-full items-center flex-wrap min-w-60 gap-4 max-md:justify-center">
       {data.docs.map((item) => (
         <PostCard
           key={item.id}
@@ -84,12 +85,12 @@ const Posts = async () => {
 };
 
 const Skeleton = () => (
-  <div className="bg-black border border-gray-900 w-96 h-96 hover:zoom-in-50 hover:scale-105 transition-transform duration-1000 p-4 animate-pulse" />
+  <div className="bg-black border border-gray-900 w-96 h-96 hover:zoom-in-50 hover:scale-105 transition-transform duration-1000 p-4 animate-pulse max-lg:w-full max-[1218px]:w-full" />
 );
 
 const PostsSkeleton = () => {
   return (
-    <div className="flex w-full items-center flex-wrap min-w-60 gap-4">
+    <div className="flex w-full items-center flex-wrap min-w-60 gap-4 max-md:justify-center">
       <Skeleton />
       <Skeleton />
       <Skeleton />
@@ -102,8 +103,8 @@ const PostsSkeleton = () => {
 
 export default async function NewsPage() {
   return (
-    <Layout className="!mt-6">
-      <h1 className="text-2xl mb-4">Новини</h1>
+    <Layout className="!mt-6 px-2">
+      <h1 className="text-2xl mb-4 max-md:text-center">Новини</h1>
       <Suspense fallback={<PostsSkeleton />}>
         <Posts />
       </Suspense>
