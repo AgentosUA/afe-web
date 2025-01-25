@@ -31,6 +31,13 @@ const Header = observer(() => {
     // },
   ];
 
+  const logout = () => {
+    fetch('/api/users/logout', {
+      method: 'POST',
+      credentials: 'include',
+    });
+  };
+
   return (
     <header className="sticky top-0 flex justify-center items-center gap-[40px] backdrop-blur-md bg-black/70 px-[40px] py-[0] h-[98px] flex-shrink-0 z-10">
       <nav className={styles.mainNav}>
@@ -60,23 +67,21 @@ const Header = observer(() => {
       <View.Condition if={!store.user.isAuthorised}>
         <nav className={styles.authNav}>
           <Link href="/auth/sign-in">Увійти</Link>
-          <Link href="/auth/signup">Реєстрація</Link>
+          <Link href="/auth/sign-up">Реєстрація</Link>
         </nav>
       </View.Condition>
-      <View.Condition if={store.user.isAuthorised}>
-        <nav className={styles.authNav}>
-          <Link href="/profile">Профіль</Link>
-          <Link
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              store.user.logout();
-            }}
-          >
-            Вихід
-          </Link>
-        </nav>
-      </View.Condition>
+
+      <nav className={styles.authNav}>
+        <Link href="/profile">Профіль</Link>
+        <Link
+          href="/"
+          onClick={(e) => {
+            logout();
+          }}
+        >
+          Вихід
+        </Link>
+      </nav>
     </header>
   );
 });

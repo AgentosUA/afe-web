@@ -2,12 +2,6 @@ import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 
 import '@/shared/styles/global.scss';
-import { cookies } from 'next/headers';
-
-import { RootStore } from '@/entities/store';
-import { StoreProvider } from '@/entities/store/provider';
-import { afeApi, instance } from '@/shared/sdk';
-import { setTokenFromCookies } from '@/shared/sdk/lib';
 
 const roboto = Roboto({
   subsets: ['cyrillic'],
@@ -24,33 +18,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const cookieToken = cookieStore.get('token');
-
-  const isAuthorised = await setTokenFromCookies(
-    cookieToken?.value ?? '',
-    instance
-  );
-
-  let userData = null;
-
-  if (isAuthorised) {
-    try {
-      const { data } = await afeApi.user.get();
-
-      userData = data;
-    } catch {
-      // do nothing
-    }
-  }
-
-  const initialData = {
-    user: {
-      isAuthorised,
-      data: userData,
-    },
-  } as Partial<RootStore>;
-
   return (
     <html lang="en">
       <head>
@@ -69,10 +36,7 @@ export default async function RootLayout({
         />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className={roboto.className}>
-        <StoreProvider initialData={initialData}>{children}</StoreProvider>
-        {/* {children} */}
-      </body>
+      <body className={roboto.className}>{children}</body>
     </html>
   );
 }

@@ -70,6 +70,7 @@ export interface User {
   username: string;
   steamUUID?: string | null;
   avatar?: (string | null) | Media;
+  role?: ('admin' | 'user') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -212,6 +213,7 @@ export interface UsersSelect<T extends boolean = true> {
   username?: T;
   steamUUID?: T;
   avatar?: T;
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

@@ -27,5 +27,24 @@ export const Users: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
     },
+    {
+      name: 'role',
+      access: {
+        read: () => true,
+        update: ({ doc }) => doc?.role === 'admin',
+      },
+      defaultValue: 'user',
+      options: [
+        {
+          label: 'Admin',
+          value: 'admin',
+        },
+        {
+          label: 'User',
+          value: 'user',
+        },
+      ],
+      type: 'select',
+    },
   ],
 };
