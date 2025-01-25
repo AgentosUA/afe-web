@@ -5,6 +5,9 @@ export const Users: CollectionConfig = {
   admin: {
     useAsTitle: 'email',
   },
+  access: {
+    admin: ({ req }) => req.user?.role === 'admin',
+  },
   auth: true,
   fields: [
     // Email added by default
