@@ -1,10 +1,10 @@
 import SignUp from '@/features/auth/sign-up/ui';
-import { Layout } from '@/widgets/layout/ui';
+import { Main } from '@/widgets/layout/main/ui';
 
 export default function SignUpPage() {
   return (
-    <Layout>
+    <Main>
       <SignUp />
-    </Layout>
+    </Main>
   );
 }

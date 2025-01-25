@@ -45,11 +45,9 @@ const SignIn: FC<SignInProps> = ({ className }) => {
         });
         const data = await res.json();
 
-        console.log(data);
-
-        // if (data.user) {
-        //   router.push('/profile');
-        // }
+        if (data.user) {
+          router.push('/profile');
+        }
       } catch (error) {
         formik.setErrors({ password: 'Invalid login or password' });
       }

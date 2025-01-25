@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
+import { cookies } from 'next/headers';
 
 import '@/shared/styles/global.scss';
+
+import { Layout } from '@/widgets/layout/ui';
 
 const roboto = Roboto({
   subsets: ['cyrillic'],
@@ -18,6 +21,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+
+  const isAuthorized = Boolean(cookieStore.get('payload-token'));
+
   return (
     <html lang="en">
       <head>
@@ -36,7 +43,11 @@ export default async function RootLayout({
         />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className={roboto.className}>{children}</body>
+      <body className={roboto.className}>
+        <Layout isAuthorised={isAuthorized} currentPath="">
+          {children}
+        </Layout>
+      </body>
     </html>
   );
 }

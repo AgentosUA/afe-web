@@ -6,6 +6,7 @@ import { getPayload } from 'payload';
 import NotFoundPage from '@/app/(app)/404';
 import payloadConfig from '@/payload.config';
 import { Layout } from '@/widgets/layout/ui';
+import { Main } from '@/widgets/layout/main/ui';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,7 +30,7 @@ export default async function NewsDetailsPage({
   if (!data) return <NotFoundPage />;
 
   return (
-    <Layout className="!mt-12">
+    <Main>
       <div className="bg-black/75 backdrop-blur-md p-5 shadow">
         <h1 className="text-4xl flex justify-between items-center text-red-700">
           {data.title}
@@ -47,8 +48,11 @@ export default async function NewsDetailsPage({
           />
         )}
 
-        <RichText className='[&>ul]:list-disc [&>li]:pl-5' data={data.content} />
+        <RichText
+          className="[&>ul]:list-disc [&>li]:pl-5"
+          data={data.content}
+        />
       </div>
-    </Layout>
+    </Main>
   );
 }

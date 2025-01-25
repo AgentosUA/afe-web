@@ -2,47 +2,54 @@
 
 // import { useEffect } from 'react';
 
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 import { UserStats } from '@/entities/user/ui/profile/stats/ui';
 import { UserCard } from '@/entities/user/ui/profile/user-card/ui';
-import { Layout } from '@/widgets/layout/ui';
-
-import styles from './page.module.scss';
+import { Main } from '@/widgets/layout/main/ui';
 
 const ProfilePage = async () => {
-  // console.log(cookieStore.getAll());
+  const headersList = await headers();
+  const host = headersList.get('host'); // Get the hostname
+  const protocol = headersList.get('x-forwarded-proto') || 'http'; // Determine protocol
+  const fullUrl = `${protocol}://${host}`;
 
   const fetchUser = async () => {
     try {
-      const res = await fetch('http://localhost:3000/api/users/me', {
+      const cookiesStore = await cookies();
+      const res = await fetch(`${fullUrl}/api/users/me`, {
         method: 'GET',
 
         headers: {
-          Cookie: cookies().toString(),
+          Cookie: cookiesStore.toString(),
           'Content-Type': 'application/json',
         },
       });
 
-      const data = await res.json();
-
-      console.log(data);
+      return res.json();
     } catch (error) {
       console.log(error);
     }
   };
 
-  await fetchUser();
+  const { user } = await fetchUser();
+
+  console.log(user);
+
+  if (!user) {
+    redirect('/auth/sign-in');
+  }
 
   return (
-    <Layout>
-      <h1 className={styles.title}>Профиль</h1>
-      <div className={styles.content}>
-        <UserCard />
+    <Main>
+      <h1 className="mb-6 text-lg">Профиль</h1>
+      <div className="mx-auto flex p-4 w-full min-h-72 bg-white/15">
+        <UserCard username={user?.username} avatar={user?.avatar?.url} />
 
-        <UserStats className={styles.stats} steamId="" />
+        <UserStats className="m-auto" steamId={user?.steamId} />
       </div>
-    </Layout>
+    </Main>
   );
 };
 

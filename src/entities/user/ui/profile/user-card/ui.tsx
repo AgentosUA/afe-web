@@ -1,27 +1,23 @@
-'use client';
-
-import { observer } from 'mobx-react-lite';
 import Image from 'next/image';
+import { FC } from 'react';
 
-import { store } from '@/entities/store';
-
-import styles from './ui.module.scss';
-
-const UserCard = observer(() => {
+const UserCard: FC<{
+  avatar?: string;
+  username: string;
+}> = ({ avatar, username }) => {
   return (
-    <div className={styles.user}>
-      <div className={styles.avatarWrapper}>
+    <div>
+      <div className="relative">
         <Image
-          fill
-          src={
-            store.user.data?.avatar ? store.user.data?.avatar : '/avatar.png'
-          }
-          alt={store.user.data?.username ?? ''}
+          width={250}
+          height={250}
+          src={avatar ? avatar : '/avatar.png'}
+          alt={username ?? ''}
         />
       </div>
-      <h2 className={styles.username}>{store.user.data?.username}</h2>
+      <h2 className="mt-2 text-center">{username}</h2>
     </div>
   );
-});
+};
 
 export { UserCard };

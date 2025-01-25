@@ -1,19 +1,17 @@
 'use client';
 
 import classNames from 'classnames';
-import { observer } from 'mobx-react-lite';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-
-import { store } from '@/entities/store';
-import { View } from '@/shared/ui/quarks/view/ui';
 
 import styles from './ui.module.scss';
 
-const Header = observer(() => {
-  const currentPath = usePathname();
+type HeaderProps = {
+  isAuthorised: boolean;
+  currentPath: string;
+};
 
+const Header = ({ isAuthorised, currentPath }: HeaderProps) => {
   const mainLinks = [
     {
       href: '/news',
@@ -64,26 +62,29 @@ const Header = observer(() => {
         />
       </Link>
 
-      <View.Condition if={!store.user.isAuthorised}>
-        <nav className={styles.authNav}>
-          <Link href="/auth/sign-in">Увійти</Link>
-          <Link href="/auth/sign-up">Реєстрація</Link>
-        </nav>
-      </View.Condition>
-
       <nav className={styles.authNav}>
-        <Link href="/profile">Профіль</Link>
-        <Link
-          href="/"
-          onClick={(e) => {
-            logout();
-          }}
-        >
-          Вихід
-        </Link>
+        {!isAuthorised && (
+          <>
+            <Link href="/auth/sign-in">Увійти</Link>
+            <Link href="/auth/sign-up">Реєстрація</Link>
+          </>
+        )}
+        {isAuthorised && (
+          <>
+            <Link href="/profile">Профіль</Link>
+            <Link
+              href="/"
+              onClick={(e) => {
+                logout();
+              }}
+            >
+              Вихід
+            </Link>
+          </>
+        )}
       </nav>
     </header>
   );
-});
+};
 
 export { Header };

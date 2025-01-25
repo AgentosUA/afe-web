@@ -1,19 +1,19 @@
-import classNames from 'classnames';
 import { FC, PropsWithChildren } from 'react';
 
 import { Footer } from './footer/ui';
 import { Header } from './header/ui';
-import styles from './ui.module.scss';
 
 const Layout: FC<
   PropsWithChildren<{
     className?: string;
+    isAuthorised?: boolean;
+    currentPath?: string;
   }>
-> = ({ className, children }) => {
+> = ({ children, isAuthorised = false, currentPath = '/' }) => {
   return (
-    <div className={styles.wrapper}>
-      <Header />
-      <main className={classNames(styles.main, className)}>{children}</main>
+    <div className="flex flex-col h-full">
+      <Header currentPath={currentPath} isAuthorised={isAuthorised} />
+      {children}
       <Footer />
     </div>
   );

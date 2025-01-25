@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/shared/ui/atoms/card';
-import { Layout } from '@/widgets/layout/ui';
+import { Main } from '@/widgets/layout/main/ui';
 
 // export const dynamic = 'force-dynamic';
 
@@ -42,7 +42,7 @@ const PostCard: FC<{
         <CardDescription className="text-gray-400 m-2">
           {description}
         </CardDescription>
-        <CardFooter className="m-2 text-red-800 text-right justify-end text-sm">
+        <CardFooter className="m-2 text-red-800 font-bold text-right justify-end text-sm">
           {dayjs(date).format('DD.MM.YYYY')}
         </CardFooter>
       </Card>
@@ -57,7 +57,7 @@ const Posts = async () => {
 
   const data = await payload.find({
     collection: 'posts',
-    limit: 99999
+    limit: 99999,
   });
 
   if (!data.docs.length) {
@@ -85,7 +85,7 @@ const Posts = async () => {
 };
 
 const Skeleton = () => (
-  <div className="bg-black border border-gray-900 w-96 h-96 hover:zoom-in-50 hover:scale-105 transition-transform duration-1000 p-4 animate-pulse max-lg:w-full max-[1218px]:w-full" />
+  <div className="bg-black border border-gray-900 w-96 h-96 lg:hover:zoom-in-50 hover:scale-105 transition-transform duration-1000 p-4 animate-pulse max-lg:w-full max-[1218px]:w-full" />
 );
 
 const PostsSkeleton = () => {
@@ -103,11 +103,11 @@ const PostsSkeleton = () => {
 
 export default async function NewsPage() {
   return (
-    <Layout className="!mt-6 px-2">
+    <Main className="max-w-screen-xl">
       <h1 className="text-2xl mb-4 max-md:text-center">Новини</h1>
       <Suspense fallback={<PostsSkeleton />}>
         <Posts />
       </Suspense>
-    </Layout>
+    </Main>
   );
 }

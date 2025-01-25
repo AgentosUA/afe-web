@@ -1,12 +1,11 @@
 import { SignIn } from '@/features/auth/sign-in/ui';
-import { Layout } from '@/widgets/layout/ui';
-
+import { Main } from '@/widgets/layout/main/ui';
 
 const LoginPage = async () => {
   return (
-    <Layout>
+    <Main>
       <SignIn />
-    </Layout>
+    </Main>
   );
 };
 
