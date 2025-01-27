@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 
 import '@/shared/styles/global.scss';
 
@@ -44,9 +44,7 @@ export default async function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className={roboto.className}>
-        <Layout isAuthorised={isAuthorized} currentPath="">
-          {children}
-        </Layout>
+        <Layout isAuthorised={isAuthorized}>{children}</Layout>
       </body>
     </html>
   );

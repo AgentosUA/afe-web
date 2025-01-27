@@ -5,13 +5,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import styles from './ui.module.scss';
+import { usePathname } from 'next/navigation';
 
 type HeaderProps = {
   isAuthorised: boolean;
-  currentPath: string;
 };
 
-const Header = ({ isAuthorised, currentPath }: HeaderProps) => {
+const Header = ({ isAuthorised }: HeaderProps) => {
+  const currentPath = usePathname();
+
   const mainLinks = [
     {
       href: '/news',
