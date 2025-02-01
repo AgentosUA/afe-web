@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 import * as yup from 'yup';
 
+import { useStore } from '@/entities/store';
+import { User } from '@/payload-types';
 import { Button } from '@/shared/ui/atoms/button';
 import { Input } from '@/shared/ui/atoms/input/ui';
 
@@ -21,6 +23,7 @@ const SignIn: FC<SignInProps> = ({ className }) => {
   });
 
   const router = useRouter();
+  const store = useStore();
 
   const formik = useFormik({
     initialValues: {
@@ -32,7 +35,7 @@ const SignIn: FC<SignInProps> = ({ className }) => {
     validationSchema,
     onSubmit: async (payload) => {
       try {
-        const res = await fetch('http://localhost:3000/api/users/login', {
+        const res = await fetch('/api/users/login', {
           method: 'POST',
           credentials: 'include',
           headers: {
@@ -43,12 +46,14 @@ const SignIn: FC<SignInProps> = ({ className }) => {
             password: payload.password,
           }),
         });
-        const data = await res.json();
+        const data = (await res.json()) as User;
 
-        if (data.user) {
+        store.user.login(data);
+
+        if (data) {
           router.push('/profile');
         }
-      } catch (error) {
+      } catch {
         formik.setErrors({ password: 'Invalid login or password' });
       }
     },

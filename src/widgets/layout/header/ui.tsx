@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { useStore } from '@/entities/store';
+
 import styles from './ui.module.scss';
 
 // type HeaderProps = {
@@ -13,7 +15,9 @@ import styles from './ui.module.scss';
 
 const Header = () => {
   const currentPath = usePathname();
-  const isAuthorised = false;
+  const {
+    user: { isAuthorized, logout },
+  } = useStore();
 
   const mainLinks = [
     {
@@ -31,13 +35,6 @@ const Header = () => {
     //   title: 'Wiki',
     // },
   ];
-
-  const logout = () => {
-    fetch('/api/users/logout', {
-      method: 'POST',
-      credentials: 'include',
-    });
-  };
 
   return (
     <header className="sticky top-0 flex justify-center items-center gap-[40px] backdrop-blur-md bg-black/70 px-[40px] py-[0] h-[98px] flex-shrink-0 z-10">
@@ -66,21 +63,23 @@ const Header = () => {
       </Link>
 
       <nav className={styles.authNav}>
-        {!isAuthorised && (
+        {!isAuthorized && (
           <>
             <Link href="/auth/sign-in">Увійти</Link>
             <Link href="/auth/sign-up">Реєстрація</Link>
           </>
         )}
-        {isAuthorised && (
+        {isAuthorized && (
           <>
-            <Link href="/profile">Профіль</Link>
             <Link
-              href="/"
-              onClick={(e) => {
-                logout();
-              }}
+              className={classNames('hover:text-red-700', {
+                'text-red-700': currentPath === '/profile',
+              })}
+              href="/profile"
             >
+              Профіль
+            </Link>
+            <Link href="/" className="hover:text-red-700" onClick={logout}>
               Вихід
             </Link>
           </>
