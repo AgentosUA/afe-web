@@ -3,16 +3,17 @@
 import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
-
-import styles from './ui.module.scss';
 import { usePathname } from 'next/navigation';
 
-type HeaderProps = {
-  isAuthorised: boolean;
-};
+import styles from './ui.module.scss';
 
-const Header = ({ isAuthorised }: HeaderProps) => {
+// type HeaderProps = {
+//   isAuthorised: boolean;
+// };
+
+const Header = () => {
   const currentPath = usePathname();
+  const isAuthorised = false;
 
   const mainLinks = [
     {

@@ -35,8 +35,6 @@ const ProfilePage = async () => {
 
   const { user } = await fetchUser();
 
-  console.log(user);
-
   if (!user) {
     redirect('/auth/sign-in');
   }

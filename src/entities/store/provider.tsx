@@ -1,21 +1,23 @@
 'use client';
 
-import { observer } from 'mobx-react-lite';
-import { PropsWithChildren } from 'react';
+import { createContext, FC, PropsWithChildren, useContext } from 'react';
 
-import { RootStore, store } from './index';
+import { UserModel } from '../user/model';
 
-const StoreProvider = observer(
-  ({
-    children,
-    initialData,
-  }: PropsWithChildren<{
-    initialData: Partial<RootStore>;
-  }>) => {
-    store.hydrate(initialData);
+const RootStore = {
+  user: new UserModel(),
+};
 
-    return children;
-  }
-);
+const StoreContext = createContext(RootStore);
 
-export { StoreProvider };
+const StoreProvider: FC<PropsWithChildren> = ({ children }) => {
+  return (
+    <StoreContext.Provider value={RootStore}>{children}</StoreContext.Provider>
+  );
+};
+
+const useStore = () => {
+  return useContext(StoreContext);
+};
+
+export { StoreProvider, useStore };
