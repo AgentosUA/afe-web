@@ -6,7 +6,6 @@ import { getPayload } from 'payload';
 import NotFoundPage from '@/app/(app)/404';
 import payloadConfig from '@/payload.config';
 import { Layout } from '@/widgets/layout/ui';
-import { Main } from '@/widgets/layout/main/ui';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,9 +29,9 @@ export default async function NewsDetailsPage({
   if (!data) return <NotFoundPage />;
 
   return (
-    <Main>
+    <Layout>
       <div className="bg-black/75 backdrop-blur-md p-5 shadow">
-        <h1 className="text-4xl flex justify-between items-center text-red-700">
+        <h1 className="text-4xl flex justify-between items-cente">
           {data.title}
           <span className="text-lg text-red-700 text-right">
             {dayjs(data.date).format('DD.MM.YYYY')}
@@ -53,6 +52,6 @@ export default async function NewsDetailsPage({
           data={data.content}
         />
       </div>
-    </Main>
+    </Layout>
   );
 }

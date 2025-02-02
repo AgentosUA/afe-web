@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
 
 import { UserStats } from '@/entities/user/ui/profile/stats/ui';
 import { UserCard } from '@/entities/user/ui/profile/user-card/ui';
-import { Main } from '@/widgets/layout/main/ui';
+import { Layout } from '@/widgets/layout/ui';
 
 const ProfilePage = async () => {
   const headersList = await headers();
@@ -40,14 +40,14 @@ const ProfilePage = async () => {
   }
 
   return (
-    <Main>
+    <Layout>
       <h1 className="mb-6 text-lg">Профиль</h1>
       <div className="mx-auto flex p-4 w-full min-h-72 bg-white/15">
         <UserCard username={user?.username} avatar={user?.avatar?.url} />
 
         <UserStats className="m-auto" steamId={user?.steamId} />
       </div>
-    </Main>
+    </Layout>
   );
 };
 

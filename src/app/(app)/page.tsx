@@ -1,11 +1,11 @@
 import Image from 'next/image';
 
 import { Button } from '@/shared/ui/atoms/button';
-import { Main } from '@/widgets/layout/main/ui';
+import { Layout } from '@/widgets/layout/ui';
 
 export default function Home() {
   return (
-    <Main className="justify-center items-center my-auto">
+    <Layout className="justify-center items-center my-auto">
       <Image
         className="md:max-w-full md:h-auto"
         src="/logo.png"
@@ -26,6 +26,6 @@ export default function Home() {
           Почати грати
         </Button>
       </a>
-    </Main>
+    </Layout>
   );
 }

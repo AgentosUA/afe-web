@@ -7,7 +7,7 @@ import {
   AccordionContent,
   AccordionTrigger,
 } from '@/shared/ui/moleculas/accordion/ui';
-import { Main } from '@/widgets/layout/main/ui';
+import { Layout } from '@/widgets/layout/ui';
 
 export default async function Faq() {
   const payload = await getPayload({
@@ -21,7 +21,7 @@ export default async function Faq() {
   });
 
   return (
-    <Main>
+    <Layout>
       <h1 className="text-2xl mb-4 mx-auto">FAQ</h1>
       <div className="w-2/3 max-md:w-full mx-auto">
         <Accordion type="multiple">
@@ -39,6 +39,6 @@ export default async function Faq() {
           ))}
         </Accordion>
       </div>
-    </Main>
+    </Layout>
   );
 }

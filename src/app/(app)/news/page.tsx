@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/shared/ui/atoms/card';
-import { Main } from '@/widgets/layout/main/ui';
+import { Layout } from '@/widgets/layout/ui';
 
 // export const dynamic = 'force-dynamic';
 
@@ -103,11 +103,11 @@ const PostsSkeleton = () => {
 
 export default async function NewsPage() {
   return (
-    <Main className="max-w-screen-xl">
+    <Layout className="max-w-screen-xl">
       <h1 className="text-2xl mb-4 max-md:text-center">Новини</h1>
       <Suspense fallback={<PostsSkeleton />}>
         <Posts />
       </Suspense>
-    </Main>
+    </Layout>
   );
 }

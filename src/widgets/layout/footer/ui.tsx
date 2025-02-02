@@ -14,13 +14,14 @@ const Footer = () => {
       <div className={styles.social}>
         <a
           href="https://discord.gg/GyHqSX6QRM"
+          className="hover:scale-110"
           target="_blank"
           rel="noopener noreferrer"
         >
           <Image width="62" height="44" src="/discord.png" alt="discord" />
         </a>
 
-        <Link href="/">
+        <Link href="/" className="hover:scale-110">
           <Image width="62" height="44" src="/youtube.png" alt="youtube" />
         </Link>
       </div>

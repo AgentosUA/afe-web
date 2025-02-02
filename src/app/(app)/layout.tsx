@@ -6,7 +6,6 @@ import '@/shared/styles/global.scss';
 
 import { StoreProvider } from '@/entities/store';
 import { User } from '@/payload-types';
-import { Layout } from '@/widgets/layout/ui';
 
 const roboto = Roboto({
   subsets: ['cyrillic'],
@@ -77,9 +76,7 @@ export default async function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className={roboto.className}>
-        <StoreProvider initial={initial}>
-          <Layout>{children}</Layout>
-        </StoreProvider>
+        <StoreProvider initial={initial}>{children}</StoreProvider>
       </body>
     </html>
   );
