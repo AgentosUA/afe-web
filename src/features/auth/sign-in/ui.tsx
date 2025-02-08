@@ -68,11 +68,11 @@ const SignIn: FC<SignInProps> = ({ className }) => {
       onSubmit={formik.handleSubmit}
     >
       <h2 className="text-red-600 text-center font-bold text-2xl">
-        Авторизация
+        Авторизація
       </h2>
       <Input
         id="email"
-        placeholder="Почта или никнейм"
+        placeholder="Пошта або нікнейм"
         value={formik.values.email}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -88,12 +88,12 @@ const SignIn: FC<SignInProps> = ({ className }) => {
         error={formik.touched.password ? formik.errors.password : ''}
       />
 
-      <Button type="submit">Авторизироваться</Button>
+      <Button type="submit">Увійти</Button>
       <Link
         className="hover:underline hover:text-red-800 text-sm text-right"
         href="/auth/forgot-password"
       >
-        Не помню пароль
+        Забув пароль
       </Link>
     </form>
   );

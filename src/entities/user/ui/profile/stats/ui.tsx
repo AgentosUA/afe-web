@@ -15,10 +15,10 @@ const UserStats = observer<{
   if (!steamId) {
     return (
       <div className={classNames(styles.form, className)}>
-        <h3>Для просмотра статистики введите STEAM ID</h3>
+        <h3>Для перегляду статистики введіть STEAM ID</h3>
         <div className={styles.col}>
           <Input placeholder="STEAM ID" />
-          <Button>ВВЕСТИ</Button>
+          <Button>Підтвердити</Button>
         </div>
       </div>
     );
