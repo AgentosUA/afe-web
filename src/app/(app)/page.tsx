@@ -23,7 +23,7 @@ export default function Home() {
           className="bg-red-700 hover:bg-red-800 text-lg uppercase font-bold"
           size="lg"
         >
-          Почати грати
+          Начать играть
         </Button>
       </a>
     </Layout>

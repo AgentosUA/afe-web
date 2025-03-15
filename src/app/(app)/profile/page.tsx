@@ -41,7 +41,7 @@ const ProfilePage = async () => {
 
   return (
     <Layout className='max-w-screen-lg'>
-      <h1 className="mb-6 text-lg">Профіль</h1>
+      <h1 className="mb-6 text-lg">Профиль</h1>
       <div className="mx-auto flex p-4 w-full min-h-72 bg-white/15">
         <UserCard username={user?.username} avatar={user?.avatar?.url} />
 

@@ -1706,7 +1706,7 @@
     "@parcel/watcher-win32-ia32" "2.5.0"
     "@parcel/watcher-win32-x64" "2.5.0"
 
-"@payloadcms/db-mongodb@^3.28.1":
+"@payloadcms/db-mongodb@^3.17.1":
   version "3.28.1"
   resolved "https://registry.yarnpkg.com/@payloadcms/db-mongodb/-/db-mongodb-3.28.1.tgz#dea360ace8b63904b89beea6833b60753bf4e278"
   integrity sha512-c5i62qtIr6vq1gQs8+qZKcp+ADVF8RkqSsTVonW85HU3FSol45N6b5AgsqecoiwDMYYdTCdto2HGZFKNDFFo1A==
@@ -1733,7 +1733,7 @@
     ts-essentials "10.0.3"
     tsx "4.19.2"
 
-"@payloadcms/next@^3.28.1":
+"@payloadcms/next@^3.17.1":
   version "3.28.1"
   resolved "https://registry.yarnpkg.com/@payloadcms/next/-/next-3.28.1.tgz#d6048fdcd34aaf5945a43b89fd38ab484e5ea30e"
   integrity sha512-TzJfG9AET2meMUWLDVhwLJvexgsAZUWp/SHFyIGwS653jsBwFYySaCivMRQyYH4A5wxDz6fQUJ/gC+qaLyzQlg==
@@ -1754,7 +1754,7 @@
     sass "1.77.4"
     uuid "10.0.0"
 
-"@payloadcms/payload-cloud@^3.28.1":
+"@payloadcms/payload-cloud@^3.17.1":
   version "3.28.1"
   resolved "https://registry.yarnpkg.com/@payloadcms/payload-cloud/-/payload-cloud-3.28.1.tgz#1d750e23216ac0a98975dad6df54dfdf761413ab"
   integrity sha512-XpKVZs9JdZuzwpA374yNU1AU7SRuoZN0yWhQW0OmzgveUnne0kzKmfSay8TXntewKv+4M8ij162udFpe67hfZw==
@@ -1767,7 +1767,7 @@
     amazon-cognito-identity-js "^6.1.2"
     nodemailer "6.9.16"
 
-"@payloadcms/richtext-lexical@^3.28.1":
+"@payloadcms/richtext-lexical@^3.17.1":
   version "3.28.1"
   resolved "https://registry.yarnpkg.com/@payloadcms/richtext-lexical/-/richtext-lexical-3.28.1.tgz#7843f03641bd164b33b98aa8057d3549f8f0b452"
   integrity sha512-gnyEJwoJDQkdzNk27DgJF9EgMjDSN0/3d28ZqF1Tbq+Ek3r2mJty5swi2KhfMSz6Gcdsmx0AQR1cPrxuSG6Iug==
@@ -6315,7 +6315,7 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
-payload@^3.28.1:
+payload@^3.17.1:
   version "3.28.1"
   resolved "https://registry.yarnpkg.com/payload/-/payload-3.28.1.tgz#7c5d6fca54a157345eadf453a4704112109fd94a"
   integrity sha512-wTR/QfImkOuVkSbudRKQjBj7hS5ZUH2b+nk/ZmShCz8jXGg5YyDumg0QtRHXDi0PrYONMhSihYdhWhHEkNXRAw==

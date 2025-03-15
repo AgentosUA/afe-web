@@ -22,7 +22,7 @@ const Header = () => {
   const mainLinks = [
     {
       href: '/news',
-      title: 'Новини',
+      title: 'Новости',
     },
 
     {
@@ -65,8 +65,8 @@ const Header = () => {
       <nav className={styles.authNav}>
         {!isAuthorized && (
           <>
-            <Link href="/auth/sign-in">Увійти</Link>
-            <Link href="/auth/sign-up">Реєстрація</Link>
+            <Link href="/auth/sign-in">Войти</Link>
+            <Link href="/auth/sign-up">Регистрация</Link>
           </>
         )}
         {isAuthorized && (
@@ -77,10 +77,10 @@ const Header = () => {
               })}
               href="/profile"
             >
-              Профіль
+              Профиль
             </Link>
             <Link href="/" className="hover:text-red-700" onClick={logout}>
-              Вихід
+              Выход
             </Link>
           </>
         )}

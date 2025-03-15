@@ -8,9 +8,10 @@ import { FC } from 'react';
 import * as yup from 'yup';
 
 import { useStore } from '@/entities/store';
-import { User } from '@/payload-types';
 import { Button } from '@/shared/ui/atoms/button';
 import { Input } from '@/shared/ui/atoms/input/ui';
+
+import { User } from '@/payload-types';
 
 type SignInProps = {
   className?: string;
@@ -68,11 +69,11 @@ const SignIn: FC<SignInProps> = ({ className }) => {
       onSubmit={formik.handleSubmit}
     >
       <h2 className="text-red-600 text-center font-bold text-2xl">
-        Авторизація
+        Авторизация
       </h2>
       <Input
         id="email"
-        placeholder="Пошта або нікнейм"
+        placeholder="Почта или никнейм"
         value={formik.values.email}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -88,12 +89,12 @@ const SignIn: FC<SignInProps> = ({ className }) => {
         error={formik.touched.password ? formik.errors.password : ''}
       />
 
-      <Button type="submit">Увійти</Button>
+      <Button type="submit">Войти</Button>
       <Link
         className="hover:underline hover:text-red-800 text-sm text-right"
         href="/auth/forgot-password"
       >
-        Забув пароль
+        Забыл пароль
       </Link>
     </form>
   );

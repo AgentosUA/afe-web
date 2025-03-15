@@ -32,7 +32,7 @@ export default async function NewsDetailsPage({
     <Layout>
       <div className="bg-black/75 backdrop-blur-md p-5 shadow">
         <h1 className="text-4xl flex justify-between items-cente">
-          {data.title}
+          {data.titleRU}
           <span className="text-lg text-red-700 text-right">
             {dayjs(data.date).format('DD.MM.YYYY')}
           </span>
@@ -43,13 +43,13 @@ export default async function NewsDetailsPage({
             width={900}
             height={384}
             src={data.preview?.url}
-            alt={data.title}
+            alt={data.titleRU}
           />
         )}
 
         <RichText
           className="[&>ul]:list-disc [&>li]:pl-5"
-          data={data.content}
+          data={data.contentRU}
         />
       </div>
     </Layout>

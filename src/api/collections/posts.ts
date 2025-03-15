@@ -3,21 +3,34 @@ import type { CollectionConfig } from 'payload';
 export const Posts: CollectionConfig = {
   slug: 'posts',
   admin: {
-    useAsTitle: 'title',
+    useAsTitle: 'titleRU',
   },
 
   fields: [
     // Email added by default
     // Add more fields as needed
     {
-      name: 'title',
-      label: 'Title',
+      name: 'titleRU',
+      label: 'Title (Russian)',
       type: 'text',
       required: true,
     },
     {
-      name: 'description',
-      label: 'Description',
+      name: 'titleEN',
+      label: 'Title (English)',
+      type: 'text',
+      required: true,
+    },
+
+    {
+      name: 'descriptionEN',
+      label: 'Description (English)',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'descriptionRU',
+      label: 'Description (Russian)',
       type: 'text',
       required: true,
     },
@@ -29,11 +42,18 @@ export const Posts: CollectionConfig = {
       displayPreview: true,
     },
     {
-      name: 'content',
-      label: 'Content',
+      name: 'contentRU',
+      label: 'Content (Russian)',
       type: 'richText',
       required: true,
     },
+    {
+      name: 'contentEN',
+      label: 'Content (English)',
+      type: 'richText',
+      required: true,
+    },
+
     {
       name: 'date',
       label: 'Date',

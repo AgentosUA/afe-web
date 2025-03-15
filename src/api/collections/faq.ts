@@ -3,19 +3,31 @@ import type { CollectionConfig } from 'payload';
 export const FAQ: CollectionConfig = {
   slug: 'faq',
   admin: {
-    useAsTitle: 'title',
+    useAsTitle: 'titleRU',
   },
 
   fields: [
     {
-      name: 'title',
-      label: 'Title',
+      name: 'titleRU',
+      label: 'Title (Russian)',
       type: 'text',
       required: true,
     },
     {
-      name: 'description',
-      label: 'Description',
+      name: 'titleEN',
+      label: 'Title (English)',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'descriptionRU',
+      label: 'Description (Russian)',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'descriptionEN',
+      label: 'Description (English)',
       type: 'text',
       required: true,
     },
