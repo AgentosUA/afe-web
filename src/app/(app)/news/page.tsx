@@ -33,9 +33,10 @@ const PostCard: FC<{
       <Card className="bg-transparent border-none">
         <CardHeader className="relative min-h-60 overflow-hidden">
           <Image
-            className="object-cover absolute top-0 left-0 w-full h-full"
+            className="absolute top-0 left-0 w-full h-full"
             src={image!}
             width={200}
+            quality="100"
             height={200}
             alt={titleEn ?? 'image'}
           />
