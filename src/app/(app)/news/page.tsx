@@ -1,0 +1,112 @@
+import dayjs from 'dayjs';
+import Image from 'next/image';
+import Link from 'next/link';
+import { getPayload } from 'payload';
+import { FC, Suspense } from 'react';
+
+import payloadConfig from '@/payload.config';
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/shared/ui/atoms/card';
+import { Layout } from '@/widgets/layout/ui';
+
+// export const dynamic = 'force-dynamic';
+
+const PostCard: FC<{
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  image: string;
+}> = ({ id, title, date, description, image }) => {
+  return (
+    <Link
+      className=" bg-black border border-gray-900 w-96 h-96 hover:zoom-in-50 hover:scale-105 transition-transform duration-75  p-4  min-w-60 hover:border-red-700 overflow-hidden"
+      href={`/news/${id}`}
+    >
+      <Card className="bg-transparent border-none">
+        <CardHeader className="relative min-h-60 overflow-hidden">
+          <Image
+            className="object-cover absolute top-0 left-0 w-full h-full"
+            src={image!}
+            width={200}
+            height={200}
+            alt={title}
+          />
+        </CardHeader>
+        <CardTitle className="text-white mx-2 my-3">{title}</CardTitle>
+        <CardDescription className="text-gray-400 m-2">
+          {description}
+        </CardDescription>
+        <CardFooter className="m-2 text-red-800 text-right justify-end text-sm">
+          {dayjs(date).format('DD.MM.YYYY')}
+        </CardFooter>
+      </Card>
+    </Link>
+  );
+};
+
+const Posts = async () => {
+  const payload = await getPayload({
+    config: payloadConfig,
+  });
+
+  const data = await payload.find({
+    collection: 'posts',
+  });
+
+  if (!data.docs.length) {
+    return <h3 className="text-lg text-center">Новин не знайдено</h3>;
+  }
+
+  return (
+    <div className="flex w-full items-center flex-wrap min-w-60 gap-4">
+      {data.docs.map((item) => (
+        <PostCard
+          key={item.id}
+          id={item.id}
+          title={item.title}
+          date={item.date}
+          description={item.description}
+          image={
+            typeof item.preview === 'string'
+              ? item.preview
+              : (item.preview?.url ?? '')
+          }
+        />
+      ))}
+    </div>
+  );
+};
+
+const Skeleton = () => (
+  <div className="bg-black border border-gray-900 w-96 h-96 hover:zoom-in-50 hover:scale-105 transition-transform duration-1000 p-4 animate-pulse" />
+);
+
+const PostsSkeleton = () => {
+  return (
+    <div className="flex w-full items-center flex-wrap min-w-60 gap-4">
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+    </div>
+  );
+};
+
+export default async function NewsPage() {
+  return (
+    <Layout className="!mt-6">
+      <h1 className="text-2xl mb-4">Новини</h1>
+      <Suspense fallback={<PostsSkeleton />}>
+        <Posts />
+      </Suspense>
+    </Layout>
+  );
+}

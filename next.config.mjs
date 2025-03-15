@@ -1,8 +1,15 @@
+import { withPayload } from "@payloadcms/next/withPayload";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false, // enable after react-leaflet fix,
   typescript: {
     ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  sassOptions: {
+    silenceDeprecations: ['legacy-js-api', 'import'],
   },
   webpack: (config) => {
     const rules = config.module.rules
@@ -31,4 +38,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPayload(nextConfig);

@@ -1,21 +1,23 @@
 'use client';
 
-import Link from 'next/link';
-
+import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import Image from 'next/image';
-
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import styles from './ui.module.scss';
-import classNames from 'classnames';
+import { store } from '@/entities/store';
+import { View } from '@/shared/ui/quarks/view/ui';
 
-const Header = () => {
+import styles from './ui.module.scss';
+
+const Header = observer(() => {
   const currentPath = usePathname();
 
   const mainLinks = [
     {
       href: '/news',
-      title: 'Новости',
+      title: 'Новини',
     },
 
     {
@@ -30,14 +32,14 @@ const Header = () => {
   ];
 
   return (
-    <header className={styles.header}>
+    <header className="sticky top-0 flex justify-center items-center gap-[40px] backdrop-blur-md bg-black/70 px-[40px] py-[0] h-[98px] flex-shrink-0 z-10">
       <nav className={styles.mainNav}>
         {mainLinks.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className={classNames({
-              [styles.active]: currentPath === link.href,
+            className={classNames('hover:text-red-700', {
+              'text-red-700': currentPath === link.href,
             })}
           >
             {link.title}
@@ -49,18 +51,34 @@ const Header = () => {
         <Image
           className={styles.logo}
           width="120"
-          height="98"
+          height="94"
           src="/header-logo.png"
           alt="Metro: After the end"
         />
       </Link>
 
-      <nav className={styles.authNav}>
-        <Link href="/auth/sign-in">Войти</Link>
-        <Link href="/auth/signup">Регистрация</Link>
-      </nav>
+      <View.Condition if={!store.user.isAuthorised}>
+        <nav className={styles.authNav}>
+          <Link href="/auth/sign-in">Увійти</Link>
+          <Link href="/auth/signup">Реєстрація</Link>
+        </nav>
+      </View.Condition>
+      <View.Condition if={store.user.isAuthorised}>
+        <nav className={styles.authNav}>
+          <Link href="/profile">Профіль</Link>
+          <Link
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              store.user.logout();
+            }}
+          >
+            Вихід
+          </Link>
+        </nav>
+      </View.Condition>
     </header>
   );
-};
+});
 
 export { Header };

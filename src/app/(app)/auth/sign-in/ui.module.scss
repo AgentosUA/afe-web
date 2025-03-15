@@ -1,0 +1,39 @@
+@import '@/shared/styles/core.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.title {
+  color: $red;
+  font-size: 24px;
+  text-align: center;
+}
+
+.form {
+  margin: 150px auto 0 auto;
+  width: 100%;
+  max-width: 330px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.forgot-password {
+  margin-left: auto;
+  color: $white;
+  font-size: 14px;
+  text-align: right;
+  width: fit-content;
+
+  &:hover {
+    text-decoration: underline;
+    color: $red;
+  }
+}
