@@ -1,44 +1,42 @@
-'use client';
+import { getPayload } from 'payload';
 
-import { Accordion } from '@/shared/ui/moleculas/accordion/ui';
+import payloadConfig from '@/payload.config';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionContent,
+  AccordionTrigger,
+} from '@/shared/ui/moleculas/accordion/ui';
 import { Layout } from '@/widgets/layout/ui';
 
+export default async function Faq() {
+  const payload = await getPayload({
+    config: payloadConfig,
+  });
 
-import styles from './page.module.scss';
+  const { docs } = await payload.find({
+    collection: 'faq',
+    sort: 'createdAt',
+    limit: 99999,
+  });
 
-export default function Faq() {
   return (
-    <Layout className={styles.main}>
-      <h1 className='text-2xl mb-4'>FAQ</h1>
-      <div>
-        <Accordion className={styles.accordion}>
-          <Accordion.Item title="Что такое After the end?">
-            Это модификация компьютерной игры DayZ, вселенной Метро 2033.
-            Игровой контент позаимствован из одноименной серии игр и переработан
-            под требования мультиплеера и концепции проекта.
-          </Accordion.Item>
-
-          <Accordion.Item title="Какой концепт/ЛОР проект">
-            Действия разворачиваются в Москве через 20 лет после глобальной
-            ядерной войны, случившейся в 2013 году. Москва превратилась в
-            пустошь с руинами, наполненной мутантами, а воздух отравлен
-            радиацией. Выжившие проживают в московском метрополитене,
-            описываемом как «лабиринт железных дорог, туннелей и бункеров».
-          </Accordion.Item>
-
-          <Accordion.Item title="Будут ли встречаться герои романа и игр?">
-            Большинство второстепенных героев, такие как Полковник Мельник, Хан,
-            Хантер, будут представлены на проекте в качестве NPC. Но главный
-            герой вселенной серии игр - Артем, будет отсутствовать, как и
-            большинство событий на которые он повлиял, к примеру, уничтожение
-            черных.
-          </Accordion.Item>
-
-          <Accordion.Item title=" Какой жанр проекта?">
-            Благодаря собственной системе репутации и навыков, упор сделан на
-            RPG/PvP/PvE, Rp будет второстепенным, мы не будем требовать от вас
-            отыгрыша своей роли, просто не мешайте это делать другим.
-          </Accordion.Item>
+    <Layout>
+      <h1 className="text-2xl mb-4 mx-auto">FAQ</h1>
+      <div className="w-2/3 max-md:w-full mx-auto">
+        <Accordion type="multiple">
+          {docs.map((item) => (
+            <AccordionItem
+              key={item.id}
+              value={item.id}
+              className="bg-black px-4"
+            >
+              <AccordionTrigger className="hover:no-underline hover:text-red-700">
+                {item.title}
+              </AccordionTrigger>
+              <AccordionContent>{item.description}</AccordionContent>
+            </AccordionItem>
+          ))}
         </Accordion>
       </div>
     </Layout>

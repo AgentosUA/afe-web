@@ -3,7 +3,6 @@ import { FC, PropsWithChildren } from 'react';
 
 import { Footer } from './footer/ui';
 import { Header } from './header/ui';
-import styles from './ui.module.scss';
 
 const Layout: FC<
   PropsWithChildren<{
@@ -11,9 +10,16 @@ const Layout: FC<
   }>
 > = ({ className, children }) => {
   return (
-    <div className={styles.wrapper}>
+    <div className="flex flex-col h-full">
       <Header />
-      <main className={classNames(styles.main, className)}>{children}</main>
+      <main
+        className={classNames(
+          'flex flex-col w-full max-w-screen-2xl mx-auto my-4',
+          className,
+        )}
+      >
+        {children}
+      </main>
       <Footer />
     </div>
   );

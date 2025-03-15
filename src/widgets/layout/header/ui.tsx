@@ -1,18 +1,23 @@
 'use client';
 
 import classNames from 'classnames';
-import { observer } from 'mobx-react-lite';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { store } from '@/entities/store';
-import { View } from '@/shared/ui/quarks/view/ui';
+import { useStore } from '@/entities/store';
 
 import styles from './ui.module.scss';
 
-const Header = observer(() => {
+// type HeaderProps = {
+//   isAuthorised: boolean;
+// };
+
+const Header = () => {
   const currentPath = usePathname();
+  const {
+    user: { isAuthorized, logout },
+  } = useStore();
 
   const mainLinks = [
     {
@@ -57,28 +62,31 @@ const Header = observer(() => {
         />
       </Link>
 
-      <View.Condition if={!store.user.isAuthorised}>
-        <nav className={styles.authNav}>
-          <Link href="/auth/sign-in">Увійти</Link>
-          <Link href="/auth/signup">Реєстрація</Link>
-        </nav>
-      </View.Condition>
-      <View.Condition if={store.user.isAuthorised}>
-        <nav className={styles.authNav}>
-          <Link href="/profile">Профіль</Link>
-          <Link
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              store.user.logout();
-            }}
-          >
-            Вихід
-          </Link>
-        </nav>
-      </View.Condition>
+      <nav className={styles.authNav}>
+        {!isAuthorized && (
+          <>
+            <Link href="/auth/sign-in">Увійти</Link>
+            <Link href="/auth/sign-up">Реєстрація</Link>
+          </>
+        )}
+        {isAuthorized && (
+          <>
+            <Link
+              className={classNames('hover:text-red-700', {
+                'text-red-700': currentPath === '/profile',
+              })}
+              href="/profile"
+            >
+              Профіль
+            </Link>
+            <Link href="/" className="hover:text-red-700" onClick={logout}>
+              Вихід
+            </Link>
+          </>
+        )}
+      </nav>
     </header>
   );
-});
+};
 
 export { Header };

@@ -1,84 +1,42 @@
-import { setCookie } from 'cookies-next/client';
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
-import { afeApi, User, instance, LoginDto } from '@/shared/sdk';
-import { setTokenFromCookies } from '@/shared/sdk/lib';
+import { User } from '@/payload-types';
 
 class UserModel {
   data: User | null = null;
 
-  isLoading = false;
+  isAuthorized = false;
 
-  isAuthorised = false;
-
-  constructor() {
+  constructor(data: { isAuthorized: boolean; data: User | null }) {
     makeAutoObservable(this);
+
+    this.isAuthorized = data.isAuthorized;
+    this.data = data.data;
   }
 
-  hydrate = (data: Partial<UserModel>) => {
-    runInAction(() => {
-      this.isAuthorised = data.isAuthorised ?? false;
-      this.data = data.data ?? null;
-    });
+  login = (data: User) => {
+    this.isAuthorized = true;
+    this.data = data;
   };
 
-  get = async (checkIsAuth = false) => {
-    if (checkIsAuth && !this.isAuthorised) return;
+  logout = async () => {
+    this.isAuthorized = false;
+    this.data = null;
 
-    try {
-      this.isLoading = true;
-
-      const { data } = await afeApi.user.get();
-
-      this.data = data;
-    } catch (error) {
-      this.logout();
-    } finally {
-      this.isLoading = false;
-    }
-  };
-
-  login = async (values: LoginDto, onError?: (string: string) => void) => {
-    try {
-      this.isLoading = true;
-
-      const {
-        data: { token, refreshToken },
-      } = await afeApi.user.login(values);
-
-      setCookie('token', token, {
-        path: '/',
-      });
-
-      setCookie('refreshToken', refreshToken, {
-        path: '/',
-      });
-
-      setTokenFromCookies(token, instance);
-
-      runInAction(() => {
-        this.isAuthorised = true;
-      });
-    } catch (error: any) {
-      onError?.(error?.response?.data?.message ?? 'Unknown error');
-    } finally {
-      this.isLoading = false;
-    }
-  };
-
-  logout = () => {
-    setCookie('token', '', {
-      path: '/',
+    fetch('/api/users/logout', {
+      method: 'POST',
+      credentials: 'include',
     });
 
-    setCookie('refreshToken', '', {
-      path: '/',
-    });
-
-    runInAction(() => {
-      this.isAuthorised = false;
-    });
+    console.log(this.isAuthorized);
   };
+
+  // hydrate = (data: Partial<UserModel>) => {
+  //   runInAction(() => {
+  //     this.isAuthorised = data.isAuthorised ?? false;
+  //     this.data = data.data ?? null;
+  //   });
+  // };
 }
 
 export { UserModel };

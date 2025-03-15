@@ -14,6 +14,7 @@ export interface Config {
     users: User;
     media: Media;
     posts: Post;
+    faq: Faq;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -23,6 +24,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    faq: FaqSelect<false> | FaqSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -67,7 +69,8 @@ export interface User {
   id: string;
   username: string;
   steamUUID?: string | null;
-  avatar: string | Media;
+  avatar?: (string | null) | Media;
+  role?: ('admin' | 'user') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -128,6 +131,17 @@ export interface Post {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq".
+ */
+export interface Faq {
+  id: string;
+  title: string;
+  description: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -144,6 +158,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: string | Post;
+      } | null)
+    | ({
+        relationTo: 'faq';
+        value: string | Faq;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -195,6 +213,7 @@ export interface UsersSelect<T extends boolean = true> {
   username?: T;
   steamUUID?: T;
   avatar?: T;
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -233,6 +252,16 @@ export interface PostsSelect<T extends boolean = true> {
   preview?: T;
   content?: T;
   date?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq_select".
+ */
+export interface FaqSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }

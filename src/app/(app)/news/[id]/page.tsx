@@ -29,9 +29,9 @@ export default async function NewsDetailsPage({
   if (!data) return <NotFoundPage />;
 
   return (
-    <Layout className="!mt-12">
+    <Layout>
       <div className="bg-black/75 backdrop-blur-md p-5 shadow">
-        <h1 className="text-4xl flex justify-between items-center text-red-700">
+        <h1 className="text-4xl flex justify-between items-cente">
           {data.title}
           <span className="text-lg text-red-700 text-right">
             {dayjs(data.date).format('DD.MM.YYYY')}
@@ -47,7 +47,10 @@ export default async function NewsDetailsPage({
           />
         )}
 
-        <RichText className='[&>ul]:list-disc [&>li]:pl-5' data={data.content} />
+        <RichText
+          className="[&>ul]:list-disc [&>li]:pl-5"
+          data={data.content}
+        />
       </div>
     </Layout>
   );

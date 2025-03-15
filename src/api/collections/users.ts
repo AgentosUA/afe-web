@@ -5,6 +5,9 @@ export const Users: CollectionConfig = {
   admin: {
     useAsTitle: 'email',
   },
+  access: {
+    admin: ({ req }) => req.user?.role === 'admin',
+  },
   auth: true,
   fields: [
     // Email added by default
@@ -26,6 +29,25 @@ export const Users: CollectionConfig = {
       label: 'Avatar',
       type: 'upload',
       relationTo: 'media',
+    },
+    {
+      name: 'role',
+      access: {
+        read: () => true,
+        update: ({ doc }) => doc?.role === 'admin',
+      },
+      defaultValue: 'user',
+      options: [
+        {
+          label: 'Admin',
+          value: 'admin',
+        },
+        {
+          label: 'User',
+          value: 'user',
+        },
+      ],
+      type: 'select',
     },
   ],
 };

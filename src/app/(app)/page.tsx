@@ -3,13 +3,11 @@ import Image from 'next/image';
 import { Button } from '@/shared/ui/atoms/button';
 import { Layout } from '@/widgets/layout/ui';
 
-import styles from './page.module.scss';
-
 export default function Home() {
   return (
-    <Layout className={styles.main}>
+    <Layout className="justify-center items-center my-auto">
       <Image
-        className={styles.logo}
+        className="md:max-w-full md:h-auto"
         src="/logo.png"
         width={514}
         height={218}

@@ -1,13 +1,11 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
+import { cookies, headers } from 'next/headers';
 
 import '@/shared/styles/global.scss';
-import { cookies } from 'next/headers';
 
-import { RootStore } from '@/entities/store';
-import { StoreProvider } from '@/entities/store/provider';
-import { afeApi, instance } from '@/shared/sdk';
-import { setTokenFromCookies } from '@/shared/sdk/lib';
+import { StoreProvider } from '@/entities/store';
+import { User } from '@/payload-types';
 
 const roboto = Roboto({
   subsets: ['cyrillic'],
@@ -25,31 +23,39 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookieStore = await cookies();
-  const cookieToken = cookieStore.get('token');
+  const headersList = await headers();
+  const host = headersList.get('host'); // Get the hostname
+  const protocol = headersList.get('x-forwarded-proto') || 'http'; // Determine protocol
+  const fullUrl = `${protocol}://${host}`;
 
-  const isAuthorised = await setTokenFromCookies(
-    cookieToken?.value ?? '',
-    instance
-  );
+  const isAuthorized = Boolean(cookieStore.get('payload-token'));
 
-  let userData = null;
+  let user: User | null = null;
 
-  if (isAuthorised) {
+  if (isAuthorized) {
     try {
-      const { data } = await afeApi.user.get();
+      const cookiesStore = await cookies();
+      const res = await fetch(`${fullUrl}/api/users/me`, {
+        method: 'GET',
 
-      userData = data;
-    } catch {
-      // do nothing
+        headers: {
+          Cookie: cookiesStore.toString(),
+          'Content-Type': 'application/json',
+        },
+      });
+
+      user = await res.json();
+    } catch (error) {
+      console.log(error);
     }
   }
 
-  const initialData = {
+  const initial = {
     user: {
-      isAuthorised,
-      data: userData,
+      data: user,
+      isAuthorized,
     },
-  } as Partial<RootStore>;
+  };
 
   return (
     <html lang="en">
@@ -70,8 +76,7 @@ export default async function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className={roboto.className}>
-        <StoreProvider initialData={initialData}>{children}</StoreProvider>
-        {/* {children} */}
+        <StoreProvider initial={initial}>{children}</StoreProvider>
       </body>
     </html>
   );
