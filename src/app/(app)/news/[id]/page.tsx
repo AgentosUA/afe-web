@@ -23,7 +23,7 @@ export default async function NewsDetailsPage({
 
   const data = await payload.findByID({
     id,
-    collection: 'posts',
+    collection: 'news',
   });
 
   if (!data) return <NotFoundPage />;

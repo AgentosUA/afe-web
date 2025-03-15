@@ -10,7 +10,7 @@ import sharp from 'sharp';
 
 import { FAQ } from './api/collections/faq';
 import { Media } from './api/collections/media';
-import { Posts } from './api/collections/posts';
+import { News } from './api/collections/news';
 import { Users } from './api/collections/users';
 
 const filename = fileURLToPath(import.meta.url);
@@ -23,7 +23,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, FAQ],
+  collections: [Users, Media, News, FAQ],
   editor: lexicalEditor({
     features: ({ defaultFeatures, rootFeatures }) => [
       ...rootFeatures,

@@ -32,9 +32,9 @@ export default async function Faq() {
               className="bg-black px-4"
             >
               <AccordionTrigger className="hover:no-underline hover:text-red-700">
-                {item.title}
+                {item.titleRU}
               </AccordionTrigger>
-              <AccordionContent>{item.description}</AccordionContent>
+              <AccordionContent>{item.descriptionRU}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

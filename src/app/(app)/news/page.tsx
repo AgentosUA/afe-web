@@ -58,7 +58,7 @@ const Posts = async () => {
   });
 
   const data = await payload.find({
-    collection: 'posts',
+    collection: 'news',
     limit: 99999,
   });
 
